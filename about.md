@@ -7,3 +7,5 @@ and I am also interested in perusing electrical engineering.
 [Notebook](notebook.md)
 
 [Home](index.md)
+
+theme: jekyll-theme-Minimal
