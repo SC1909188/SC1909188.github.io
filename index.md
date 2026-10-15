@@ -8,6 +8,7 @@
 
 ### Java Projects
 
+- **[Element Master](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/ElementMaster.java)** — A Java GUI quiz game for learning element symbols, atomic numbers, and periodic-table groups.
 - **[Hello World](https://github.com/SC1909188/SC1909188.github.io)** — My first Java program.
 - **[Day If/Else](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/DayIfElse.java)** — Uses if/else statements.
 - **[Day Switch](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/DaySwitch.java)** — Uses switch statements.
