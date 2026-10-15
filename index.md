@@ -2,14 +2,24 @@
 
 ## Projects
 
-- **[Python Fishing Game](https://github.com/SC1909188)** — A fishing game made with Python and Pygame.
-- **[Java Projects](https://github.com/SC1909188/SC1909188.github.io/tree/main/java-projects)** — My Java programming projects.
-- **[Hello World](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/HelloWorld.java)** — My first Java program.
-- **[Day Name Lookup](https://github.com/SC1909188/SC1909188.github.io/tree/main/java-projects)** — Programs using if/else and switch statements.
-- **[Multiplication Table](https://github.com/SC1909188/SC1909188.github.io/tree/main/java-projects)** — Programs using loops.
-- **[Linear Search](https://github.com/SC1909188/SC1909188.github.io/tree/main/java-projects)** — A program that searches an array.
-- **[Recursion Demo](https://github.com/SC1909188/SC1909188.github.io/tree/main/java-projects)** — A program that uses recursion.
+### Python Projects
 
+- **[Python Fishing Game](https://github.com/SC1909188)** — A fishing game made with Python and Pygame.
+
+### Java Projects
+
+- **[Hello World](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/HelloWorld.java)** — My first Java program.
+- **[Day If/Else](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/DayIfElse.java)** — Finds the day using if/else statements.
+- **[Day Switch](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/DaySwitch.java)** — Finds the day using a switch statement.
+- **[Mad Libs](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/MadLibs.java)** — A Mad Libs program.
+- **[Multiplication Table (For Loop)](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/TableFor.java)** — Creates a multiplication table using a for loop.
+- **[Multiplication Table (While Loop)](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/TableWhile.java)** — Creates a multiplication table using a while loop.
+- **[Linear Search](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/SearchDemo.java)** — Searches through an array.
+- **[Recursion Demo](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/RecursionDemo.java)** — Demonstrates recursion in Java.
+
+### Cybersecurity Projects
+
+- **Cyber 9th Code** — My cybersecurity class projects.
 
 ## About Me
 Click here to learn more → [About Me](about.md)
