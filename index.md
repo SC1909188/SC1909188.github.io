@@ -8,14 +8,14 @@
 
 ### Java Projects
 
-- **[Hello World](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/HelloWorld.java)** — My first Java program.
-- **[Day If/Else](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/DayIfElse.java)** — Finds the day using if/else statements.
-- **[Day Switch](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/DaySwitch.java)** — Finds the day using a switch statement.
+- **[Hello World](https://github.com/SC1909188/SC1909188.github.io)** — My first Java program.
+- **[Day If/Else](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/DayIfElse.java)** — Uses if/else statements.
+- **[Day Switch](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/DaySwitch.java)** — Uses switch statements.
 - **[Mad Libs](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/MadLibs.java)** — A Mad Libs program.
-- **[Multiplication Table (For Loop)](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/TableFor.java)** — Creates a multiplication table using a for loop.
-- **[Multiplication Table (While Loop)](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/TableWhile.java)** — Creates a multiplication table using a while loop.
-- **[Linear Search](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/SearchDemo.java)** — Searches through an array.
-- **[Recursion Demo](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/RecursionDemo.java)** — Demonstrates recursion in Java.
+- **[Multiplication Table (For Loop)](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/TableFor.java)** — Uses a for loop.
+- **[Multiplication Table (While Loop)](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/TableWhile.java)** — Uses a while loop.
+- **[Linear Search](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/SearchDemo.java)** — Searches an array.
+- **[Recursion Demo](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/RecursionDemo.java)** — Demonstrates recursion.
 
 ### Cybersecurity Projects
 
