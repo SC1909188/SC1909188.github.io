@@ -2,8 +2,6 @@
 
 ## Projects
 
-## Projects
-
 - **[Python Fishing Game](https://github.com/SC1909188)** — A fishing game made with Python and Pygame.
 - **[Java Projects](https://github.com/SC1909188/SC1909188.github.io/tree/main/java-projects)** — My Java programming projects.
 - **[Hello World](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/HelloWorld.java)** — My first Java program.
