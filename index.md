@@ -17,7 +17,7 @@
 - **[Multiplication Table (While Loop)](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/TableWhile.java)** — Uses a while loop.
 - **[Linear Search](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/SearchDemo.java)** — Searches an array.
 - **[Recursion Demo](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/RecursionDemo.java)** — Demonstrates recursion.
-- **[First Array](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/RecursionDemo.java)** -Java ArrayList
+- **[First Array](https://github.com/SC1909188/SC1909188.github.io/blob/main/java-projects/FirstArray.java)** -Java ArrayList
 
 ### Cybersecurity Projects
 
