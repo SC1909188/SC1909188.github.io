@@ -1,6 +1,9 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,6 +44,194 @@ public class ElementMaster extends JFrame {
         "Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm " +
         "Md No Lr Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og"
     ).split(" ");
+
+
+
+    private final String[] atomicMasses = {
+        "1.008", "4.0026",
+        "6.94", "9.0122",
+        "10.81", "12.011",
+        "14.007", "15.999",
+        "18.998", "20.180",
+        "22.990", "24.305",
+        "26.982", "28.085",
+        "30.974", "32.06",
+        "35.45", "39.948",
+        "39.098", "40.078",
+        "44.956", "47.867",
+        "50.942", "51.996",
+        "54.938", "55.845",
+        "58.933", "58.693",
+        "63.546", "65.38",
+        "69.723", "72.630",
+        "74.922", "78.971",
+        "79.904", "83.798",
+        "85.468", "87.62",
+        "88.906", "91.224",
+        "92.906", "95.95",
+        "[98]", "101.07",
+        "102.91", "106.42",
+        "107.87", "112.41",
+        "114.82", "118.71",
+        "121.76", "127.60",
+        "126.90", "131.29",
+        "132.91", "137.33",
+        "138.91", "140.12",
+        "140.91", "144.24",
+        "[145]", "150.36",
+        "151.96", "157.25",
+        "158.93", "162.50",
+        "164.93", "167.26",
+        "168.93", "173.05",
+        "174.97", "178.49",
+        "180.95", "183.84",
+        "186.21", "190.23",
+        "192.22", "195.08",
+        "196.97", "200.59",
+        "204.38", "207.2",
+        "208.98", "[209]",
+        "[210]", "[222]",
+        "[223]", "[226]",
+        "[227]", "232.04",
+        "231.04", "238.03",
+        "[237]", "[244]",
+        "[243]", "[247]",
+        "[247]", "[251]",
+        "[252]", "[257]",
+        "[258]", "[259]",
+        "[266]", "[267]",
+        "[268]", "[269]",
+        "[270]", "[277]",
+        "[278]", "[281]",
+        "[282]", "[285]",
+        "[286]", "[289]",
+        "[290]", "[293]",
+        "[294]", "[294]"
+    };
+
+    private final String[] discoveryFacts = {
+        "Isolated in 1766 by Henry Cavendish. Antoine Lavoisier later gave it the name hydrogen.", "Its spectrum was identified in sunlight in 1868, before William Ramsay isolated helium on Earth in 1895.",
+        "Identified in a mineral in 1817 by Johan August Arfwedson.", "Recognized in beryl by Louis-Nicolas Vauquelin in 1798; the metal was isolated in 1828.",
+        "Isolated independently in 1808 by Humphry Davy and by French chemists Joseph Louis Gay-Lussac and Louis-Jacques Thénard.", "Known since antiquity in charcoal, soot, and diamond; it has no single discoverer.",
+        "Isolated by Daniel Rutherford in 1772; other early chemists independently studied the gas.", "Studied by Carl Wilhelm Scheele and Joseph Priestley in the 1770s; Lavoisier explained its role in combustion.",
+        "Henri Moissan isolated it in 1886 after many earlier attempts to separate this highly reactive element.", "Discovered in liquefied air by William Ramsay and Morris Travers in 1898.",
+        "Isolated by Humphry Davy in 1807 using electrolysis.", "Joseph Black recognized magnesia as a distinct substance in 1755; Humphry Davy isolated the metal in 1808.",
+        "Hans Christian Ørsted produced impure aluminum in 1825; Friedrich Wöhler improved its isolation in 1827.", "Isolated by Jöns Jacob Berzelius in 1824.",
+        "Discovered by Hennig Brand in 1669 during experiments with urine.", "Known since antiquity; elemental sulfur can be found near volcanic areas.",
+        "Carl Wilhelm Scheele produced chlorine gas in 1774; Humphry Davy established it as an element in 1810.", "Discovered from air by Lord Rayleigh and William Ramsay in 1894.",
+        "Isolated by Humphry Davy in 1807 using electrolysis.", "Prepared in impure form by Humphry Davy in 1808 using electrolysis.",
+        "Discovered by Lars Fredrik Nilson in 1879.", "Identified by William Gregor in 1791 in mineral sands; Martin Heinrich Klaproth named it titanium.",
+        "Andrés Manuel del Río identified it in 1801; the discovery was recognized after Nils Sefström rediscovered it in 1830.", "Discovered by Louis Nicolas Vauquelin in 1797.",
+        "Isolated by Johan Gottlieb Gahn in 1774.", "Known and worked since antiquity.",
+        "Recognized as a distinct metal by Georg Brandt in the 1730s.", "Identified by Axel Fredrik Cronstedt in 1751.",
+        "Known since antiquity and widely used in tools, ornaments, and alloys.", "Used in brass since ancient times; Andreas Marggraf isolated the metal in 1746.",
+        "Discovered spectroscopically by Paul-Émile Lecoq de Boisbaudran in 1875.", "Discovered by Clemens Winkler in 1886, confirming a prediction made from the periodic table.",
+        "Known since ancient times; its compounds were used long before modern chemistry.", "Discovered by Jöns Jacob Berzelius and Johan Gottlieb Gahn in 1817.",
+        "Discovered by Antoine Jérôme Balard in 1826.", "Discovered by William Ramsay and Morris Travers in 1898.",
+        "Discovered spectroscopically by Robert Bunsen and Gustav Kirchhoff in 1861.", "Strontian mineral was identified in the late 18th century; Humphry Davy isolated the metal in 1808.",
+        "Discovered by Johan Gadolin in 1794.", "Discovered by Martin Heinrich Klaproth in 1789.",
+        "Discovered by Charles Hatchett in 1801; its relationship to tantalum was clarified later.", "Identified by Carl Wilhelm Scheele in 1778 and isolated by the Elhuyar brothers in 1781.",
+        "First prepared artificially in 1937 by Carlo Perrier and Emilio Segrè.", "Discovered by Karl Ernst Claus in 1844.",
+        "Discovered by William Hyde Wollaston in 1803.", "Discovered by William Hyde Wollaston in 1803.",
+        "Known since prehistoric times; one of the earliest metals used by humans.", "Identified by Friedrich Stromeyer in 1817.",
+        "Discovered spectroscopically by Ferdinand Reich and Hieronymus Richter in 1863.", "Known since antiquity; used in bronze and other alloys.",
+        "Known since antiquity and used in alloys and compounds.", "Identified by Franz-Joseph Müller von Reichenstein in 1782.",
+        "Discovered by Bernard Courtois in 1811 while processing seaweed ash.", "Discovered by William Ramsay and Morris Travers in 1898.",
+        "Discovered spectroscopically by Robert Bunsen and Gustav Kirchhoff in 1860.", "Barium compounds were studied in the 18th century; Humphry Davy isolated the metal in 1808.",
+        "Discovered by Carl Gustaf Mosander in 1839.", "Discovered independently by Martin Heinrich Klaproth, Jöns Jacob Berzelius, and Wilhelm Hisinger in 1803.",
+        "Separated from didymium by Carl Auer von Welsbach in 1885.", "Separated from didymium by Carl Auer von Welsbach in 1885.",
+        "Identified in nuclear fission products in 1945 by Jacob Marinsky, Lawrence Glendenin, and Charles Coryell.", "Discovered by Paul-Émile Lecoq de Boisbaudran in 1879.",
+        "Identified by Eugène-Anatole Demarçay in 1901.", "Discovered by Jean Charles Galissard de Marignac in 1880.",
+        "Identified by Carl Gustaf Mosander in 1843.", "Discovered by Paul-Émile Lecoq de Boisbaudran in 1886.",
+        "Discovered by Marc Delafontaine and Jacques-Louis Soret in 1878.", "Discovered by Carl Gustaf Mosander in 1843.",
+        "Discovered by Per Teodor Cleve in 1879.", "Discovered by Jean Charles Galissard de Marignac in 1878.",
+        "Discovered independently by Georges Urbain and Carl Auer von Welsbach in 1907.", "Predicted from periodic trends and discovered by Dirk Coster and George de Hevesy in 1923.",
+        "Discovered by Anders Gustaf Ekeberg in 1802.", "Isolated by the Elhuyar brothers in 1783.",
+        "Discovered by Walter Noddack, Ida Tacke, and Otto Berg in 1925.", "Discovered by Smithson Tennant in 1803.",
+        "Discovered by Smithson Tennant in 1803.", "Known in South American ores before modern European chemistry; studied widely in the 18th century.",
+        "Known since antiquity and valued for its resistance to corrosion and tarnishing.", "Known since antiquity; early uses included extraction processes and instruments.",
+        "Discovered spectroscopically by William Crookes in 1861.", "Known since ancient times and mined for thousands of years.",
+        "Recognized as distinct from lead and tin by Claude François Geoffroy in 1753.", "Discovered by Marie and Pierre Curie in 1898.",
+        "First produced in 1940 by Dale Corson, Kenneth MacKenzie, and Emilio Segrè.", "Identified by Friedrich Ernst Dorn in 1900 during studies of radium decay.",
+        "Discovered by Marguerite Perey in 1939 while studying actinium decay.", "Discovered by Marie and Pierre Curie in 1898.",
+        "Discovered by André-Louis Debierne in 1899.", "Discovered by Jöns Jacob Berzelius in 1829.",
+        "Identified by Kasimir Fajans and Oswald Göhring in 1913; later isolated by Otto Hahn and Lise Meitner.", "Discovered by Martin Heinrich Klaproth in 1789.",
+        "First synthesized by Edwin McMillan and Philip Abelson in 1940.", "First synthesized by Glenn Seaborg's team in 1940.",
+        "First identified by Glenn Seaborg and colleagues in 1944.", "First synthesized by Glenn Seaborg's team in 1944.",
+        "Synthesized at Berkeley in 1949 by a team led by Stanley Thompson.", "Synthesized at Berkeley in 1950 by a team led by Stanley Thompson.",
+        "Identified in debris from a thermonuclear test in 1952.", "Identified in thermonuclear-test debris in 1952.",
+        "Synthesized by Albert Ghiorso's team at Berkeley in 1955.", "Reported by teams at Berkeley and Dubna in 1958; early results were disputed.",
+        "Synthesized at Berkeley in 1961.", "First reported by teams at Dubna and Berkeley in the 1960s; discovery credit was disputed.",
+        "Produced by research teams at Dubna and Berkeley in the late 1960s and 1970s; naming was disputed.", "Synthesized at Berkeley in 1974 by a team including Albert Ghiorso.",
+        "Synthesized at GSI Darmstadt in 1981.", "Synthesized at GSI Darmstadt in 1984.",
+        "Synthesized at GSI Darmstadt in 1982.", "Synthesized at GSI Darmstadt in 1994.",
+        "Synthesized at GSI Darmstadt in 1994.", "First reported by GSI Darmstadt in 1996.",
+        "First convincingly produced by the RIKEN team in Japan in 2004.", "Produced by the Dubna–Livermore collaboration beginning in 1998.",
+        "First produced by the Dubna–Livermore collaboration in 2003.", "Produced by the Dubna–Livermore collaboration beginning in 2000.",
+        "First reported by an international collaboration in 2010.", "Produced in experiments at Dubna with U.S. collaborators; early results were published later and subsequently confirmed."
+    };
+
+    private final String[] elementUses = {
+        "Used in fuel cells, ammonia production, refining, and as a fuel in some rockets. Hydrogen atoms are central to water and almost all organic molecules.", "Used to fill balloons and airships, cool superconducting magnets, and provide a controlled atmosphere for some processes. It is very unreactive.",
+        "Used in rechargeable lithium-ion batteries, specialty glass, ceramics, and some medicines. Lithium compounds require careful handling.", "Used in lightweight aerospace alloys, X-ray windows, and beryllium-copper tools. Beryllium dust is toxic, so industrial use requires strict controls.",
+        "Used in borosilicate glass, fiberglass, detergents, and semiconductor materials. Boron compounds also help plants grow in small amounts.", "Found in every known form of life; graphite is used in pencils and batteries, diamond in cutting tools, and carbon fiber in strong lightweight parts.",
+        "Makes up about 78% of Earth's atmosphere. Nitrogen is used to make ammonia and fertilizers, provide inert atmospheres, and cool materials as liquid nitrogen.", "Used in medical oxygen, steel production, water treatment, and many chemical processes. Ozone is another form of oxygen.",
+        "Used to make fluoropolymers, special glass, and some medicines and toothpaste ingredients. Fluorine gas is extremely reactive and hazardous.", "Used in illuminated signs, lasers, and some high-voltage indicators. Neon glows reddish-orange in a discharge tube.",
+        "Used in table salt, chemical manufacturing, soap production, and sodium-vapor lamps. Pure sodium metal reacts strongly with water.", "Used in lightweight alloys, fireworks, antacids, and materials that reduce glare. Magnesium burns with an intense white light.",
+        "Used in drink cans, aircraft, power lines, construction, and packaging because it is light and forms a protective oxide layer.", "Used in computer chips, solar cells, glass, and silicone-based materials. Silicon is the main semiconductor in most modern electronics.",
+        "Used in fertilizers, safety matches, detergents, and biological molecules such as DNA and ATP.", "Used to make sulfuric acid, fertilizers, rubber, and some medicines. Sulfur is also important in proteins.",
+        "Used to disinfect drinking water and pools and to make PVC plastic and other chemicals. Chlorine gas is toxic at high concentrations.", "Used in welding, lighting, and protective atmospheres for manufacturing. Argon is the most abundant noble gas in Earth's atmosphere.",
+        "Used in fertilizers, soaps, glass, and chemical production. Potassium ions are essential for nerve and muscle function.", "Used in cement, plaster, metals, and dietary supplements. Calcium compounds form bones, teeth, and limestone.",
+        "Used in aerospace alloys, high-strength bicycle frames, and specialized equipment. Scandium is relatively rare and expensive.", "Used in aircraft, medical implants, chemical equipment, and sporting goods due to its strength and corrosion resistance.",
+        "Used in strong steel alloys, tools, pigments, and some rechargeable batteries. Vanadium can strengthen steel.", "Used in stainless steel, chrome plating, pigments, and some batteries. Chromium compounds differ greatly in toxicity.",
+        "Used in steelmaking, batteries, and industrial chemicals. Manganese is also a trace nutrient for living things.", "Used in buildings, vehicles, tools, and machinery; iron is the main ingredient in steel and a key part of hemoglobin.",
+        "Used in rechargeable batteries, superalloys, magnets, and catalysts. Cobalt compounds give some glass and ceramics a blue color.", "Used in stainless steel, coins, catalysts, and rechargeable batteries. Nickel can trigger skin allergies in some people.",
+        "Used in electrical wiring, motors, plumbing, coins, and electronics because it conducts electricity well.", "Used to galvanize steel against rust, in die-casting alloys, and in batteries. Zinc is a required trace nutrient.",
+        "Used in semiconductors, LEDs, solar panels, and high-temperature thermometers. Gallium can melt in a warm hand.", "Used in fiber optics, infrared optics, and semiconductor research. Its chemistry helped confirm predictions of the periodic table.",
+        "Used in some semiconductors, specialty glass, and research. Many arsenic compounds are poisonous, so exposure must be controlled.", "Used in glassmaking, pigments, and some photovoltaic technologies. Selenium is essential in tiny amounts but toxic in excess.",
+        "Used in flame retardants, water-treatment chemicals, and medicines. Bromine is a reddish-brown liquid at room temperature.", "Used in photographic flashes historically, high-performance lighting, and as a protective gas in some applications.",
+        "Used in atomic clocks, vacuum tubes, and research. Rubidium is highly reactive and must be kept away from water and air.", "Used in fireworks and signal flares to produce a red color, in magnets, and in some medical imaging compounds.",
+        "Used in laser crystals, phosphors, and research. Yttrium compounds are important in some red phosphors and ceramics.", "Used in nuclear reactors, chemical equipment, and corrosion-resistant alloys. Zirconium is useful where resistance to corrosion matters.",
+        "Used in superconducting magnets, steel alloys, and specialized electronics. Niobium can form superconducting compounds.", "Used in strong alloys, catalysts, and lubricants. Molybdenum helps steel retain strength at high temperatures.",
+        "Used mainly in scientific research; its radioactivity makes routine consumer uses impractical.", "Used in catalysts, electrical contacts, and specialized alloys because it resists corrosion.",
+        "Used in catalytic converters, chemical catalysts, and laboratory equipment.", "Used in catalytic converters, electronics, jewelry, and chemical processes. Palladium can absorb large amounts of hydrogen.",
+        "Used in jewelry, mirrors, electronics, and antimicrobial coatings. Silver has the highest electrical conductivity of any element.", "Used in rechargeable batteries, protective coatings, and nuclear-control applications. Cadmium and many compounds are toxic.",
+        "Used in touchscreens, semiconductors, and low-melting alloys. Indium tin oxide helps transparent screens conduct electricity.", "Used in solder, protective coatings, and bronze. Many modern products use lead-free tin-based solder.",
+        "Used in flame-retardant materials, alloys, and some semiconductor devices. Antimony compounds can be toxic.", "Used in solar panels, thermoelectric devices, and specialty alloys. Tellurium is relatively rare in Earth's crust.",
+        "Used in antiseptics, iodized salt, and medical imaging compounds. The thyroid gland needs small amounts of iodine.", "Used in flash lamps, ion propulsion research, and specialized light sources. Xenon is a heavy noble gas.",
+        "Used in atomic clocks, photoelectric cells, and vacuum tubes. Cesium reacts violently with water.", "Used in drilling fluids, glass, paint, and medical imaging compounds. Soluble barium salts can be toxic, while barium sulfate is used in X-ray imaging.",
+        "Used in camera lenses, catalysts, and specialty glass. Lanthanum compounds can improve optical properties.", "Used in catalytic converters, glass polishing, lighter flints, and some alloys.",
+        "Used in aircraft alloys, magnets, and research. Praseodymium compounds can color glass and ceramics.", "Used in powerful permanent magnets, lasers, and glass coloring. Neodymium magnets are common in speakers and motors.",
+        "Used only in specialized research because all its isotopes are radioactive and scarce.", "Used in magnets, lasers, and nuclear research. Samarium-cobalt magnets work at relatively high temperatures.",
+        "Used in phosphors, lasers, and some nuclear control materials. Europium compounds are known for red and blue phosphorescence.", "Used in strong permanent magnets, medical imaging research, and nuclear technology.",
+        "Used in magnets, solid-state devices, and research into advanced materials.", "Used in permanent magnets, lasers, and research. Dysprosium can help magnets perform at higher temperatures.",
+        "Used in lasers, specialty glass, and research. Holmium has a very high magnetic moment.", "Used in fiber-optic amplifiers, lasers, and research. Erbium helps amplify signals in optical communication systems.",
+        "Used in lasers and research; it has no major everyday application because it is rare.", "Used in specialty magnets, phosphors, and research. Ytterbium also has applications in some atomic-clock studies.",
+        "Used in laser crystals, catalysts, and scientific research.", "Used in superalloys for jet engines, plasma equipment, and research.",
+        "Used in electronics, capacitors, corrosion-resistant equipment, and aerospace alloys.", "Used in light-bulb filaments historically, heavy alloys, cutting tools, and electrical contacts. Tungsten has an extremely high melting point.",
+        "Used in jet-engine superalloys, catalysts, and wear-resistant coatings.", "Used in pen tips, electrical contacts, and hard alloys. Osmium is one of the densest naturally occurring elements.",
+        "Used in spark plugs, electrical contacts, and specialist alloys because it resists wear and corrosion.", "Used in catalytic converters, laboratory equipment, and corrosion-resistant coatings.",
+        "Used in jewelry, coins, electronics, and dentistry. Gold resists corrosion and conducts electricity well.", "Used historically in thermometers, switches, and some lamps; many uses have been phased down due to toxicity.",
+        "Used in specialty glass, electronics, and research. Thallium compounds are highly toxic.", "Used in batteries, radiation shielding, and some specialized alloys; many uses have been reduced because lead is toxic.",
+        "Used in lead-free solders, medicines such as bismuth subsalicylate, and cosmetics. Bismuth is relatively low in toxicity compared with lead.", "Used only in research and a few specialized devices because it is radioactive and rare.",
+        "Used only in scientific research because it is extremely rare and radioactive.", "Used in scientific research; radon is a radioactive gas that can accumulate in buildings and poses a health risk.",
+        "Used only in research; francium is extremely rare and highly radioactive.", "Used in medical and industrial radiation sources under controlled conditions. Radium is highly radioactive and hazardous.",
+        "Used in scientific research; it has no significant routine commercial use because it is radioactive and rare.", "Used in thorium-based research, specialized alloys, and nuclear science. Thorium compounds have been used in some optical materials.",
+        "Used in nuclear research; its chemistry is studied to understand actinides and nuclear fuel cycles.", "Used as nuclear fuel in reactors and in research; depleted uranium has specialized industrial uses with strict controls.",
+        "Used primarily in scientific research and as a precursor in the production of heavier elements.", "Used in nuclear research and in some specialized reactor contexts; it is radioactive and requires strict controls.",
+        "Used mainly in nuclear research and to create heavier elements.", "Used in nuclear research and the synthesis of heavier elements.",
+        "Used only in scientific research; only minute amounts can be produced.", "Used only in research; californium-252 is a strong neutron source used in specialized analysis and reactor start-up.",
+        "Used only in scientific research because it is highly radioactive and available in tiny quantities.", "Used only in scientific research; its isotopes are produced atom by atom or in tiny amounts.",
+        "Used only in scientific research due to its short-lived radioactive isotopes.", "Used only in scientific research; it has no routine commercial applications.",
+        "Used only in research; it is produced atom by atom and decays rapidly.", "Used only in research; extremely short-lived and available in tiny quantities.",
+        "Used only in research; its properties are inferred from a very small number of atoms.", "Used only in research; extremely radioactive and difficult to produce.",
+        "Used only in research to investigate superheavy-element chemistry.", "Used only in research; extremely short-lived and produced atom by atom.",
+        "Used only in research; too few atoms have been made for everyday applications.", "Used only in research; its chemistry and physical properties are still being investigated.",
+        "Used only in research; it is extremely short-lived and highly radioactive.", "Used only in research; it is extremely short-lived and highly radioactive.",
+        "Used only in research; its chemical behavior is studied one atom at a time.", "Used only in research; its expected noble-gas behavior is difficult to measure directly.",
+        "Used only in research; extremely short-lived and produced in particle-accelerator experiments.", "Used only in research; its chemistry and physical properties remain largely uncertain.",
+        "Used only in research; tennessine is extremely radioactive, short-lived, and produced atom by atom in accelerator experiments.", "Used only in research; oganesson is extremely short-lived, and its physical and chemical properties are largely unknown."
+    };
 
     private final String[] testSets = {
         "Custom range", "Elements 1-10", "Elements 1-20", "Elements 1-32",
@@ -252,7 +443,7 @@ public class ElementMaster extends JFrame {
         JPanel tableWrap = new JPanel(new BorderLayout(0, 8));
         tableWrap.setOpaque(false);
         tableWrap.add(buildPeriodicTablePreview(), BorderLayout.CENTER);
-        JLabel note = label("A mini periodic table — colored by family", 10, MUTED, Font.PLAIN);
+        JLabel note = label("Click any element tile to open its full profile", 10, TEAL, Font.BOLD);
         tableWrap.add(note, BorderLayout.SOUTH);
         card.add(tableWrap, BorderLayout.CENTER);
 
@@ -636,13 +827,343 @@ public class ElementMaster extends JFrame {
         screens.show(screenHolder, "RESULTS");
     }
 
+    private void showElementDetails(int z) {
+        JDialog dialog = new JDialog(this, names[z - 1] + " | Element Profile", true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.setSize(860, 740);
+        dialog.setMinimumSize(new Dimension(760, 640));
+        dialog.setLocationRelativeTo(this);
+
+        JPanel root = new GradientPanel(NAVY, new Color(19, 31, 67));
+        root.setLayout(new BorderLayout(0, 14));
+        root.setBorder(new EmptyBorder(18, 20, 18, 20));
+
+        JPanel hero = new CardPanel(CARD, 20);
+        hero.setLayout(new BorderLayout(16, 0));
+        hero.setBorder(new EmptyBorder(14, 16, 14, 16));
+
+        CardPanel badge = new CardPanel(familyColor(z), 16);
+        badge.setLayout(new BoxLayout(badge, BoxLayout.Y_AXIS));
+        badge.setPreferredSize(new Dimension(100, 104));
+        JLabel badgeNumber = label("ATOMIC NO. " + z, 9, Color.WHITE, Font.BOLD);
+        badgeNumber.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel badgeSymbol = label(symbols[z - 1], 40, Color.WHITE, Font.BOLD);
+        badgeSymbol.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel badgeMass = label(atomicMasses[z - 1], 10, Color.WHITE, Font.PLAIN);
+        badgeMass.setAlignmentX(Component.CENTER_ALIGNMENT);
+        badge.add(Box.createVerticalGlue());
+        badge.add(badgeNumber);
+        badge.add(Box.createVerticalStrut(1));
+        badge.add(badgeSymbol);
+        badge.add(Box.createVerticalStrut(1));
+        badge.add(badgeMass);
+        badge.add(Box.createVerticalGlue());
+        hero.add(badge, BorderLayout.WEST);
+
+        JPanel identity = new JPanel();
+        identity.setOpaque(false);
+        identity.setLayout(new BoxLayout(identity, BoxLayout.Y_AXIS));
+        JLabel title = label(names[z - 1], 28, WHITE, Font.BOLD);
+        title.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JLabel subtitle = label(getCategory(z).toUpperCase() + "  •  " + getGroupLabel(z), 11, TEAL, Font.BOLD);
+        subtitle.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JLabel description = wrappedLabel("Explore this element's identity, electron structure, discovery story, uses, and key chemistry notes.", 12, MUTED);
+        description.setAlignmentX(Component.LEFT_ALIGNMENT);
+        identity.add(Box.createVerticalGlue());
+        identity.add(title);
+        identity.add(Box.createVerticalStrut(5));
+        identity.add(subtitle);
+        identity.add(Box.createVerticalStrut(10));
+        identity.add(description);
+        identity.add(Box.createVerticalGlue());
+        hero.add(identity, BorderLayout.CENTER);
+        root.add(hero, BorderLayout.NORTH);
+
+        JPanel detailGrid = new JPanel(new GridLayout(0, 2, 12, 12));
+        detailGrid.setOpaque(false);
+        detailGrid.add(detailCard("AT A GLANCE", 
+            "Atomic number: " + z + "\n" +
+            "Chemical symbol: " + symbols[z - 1] + "\n" +
+            "Standard atomic mass: " + atomicMasses[z - 1] + " u\n" +
+            "Element family: " + getCategory(z) + "\n" +
+            "Periodic-table position: " + getGroupLabel(z) + ", period " + getPeriod(z) + "\n" +
+            "Block: " + getBlock(z) + "\n" +
+            "State near room temperature: " + getState(z)));
+
+        detailGrid.add(detailCard("VALENCE ELECTRONS & SHELLS",
+            "Valence-electron guide: " + getValenceInfo(z) + "\n" +
+            "Electrons by shell: " + getShellDistribution(z) + "\n" +
+            "Orbital configuration: " + getElectronConfiguration(z) + "\n\n" +
+            "Important: transition metals and inner-transition elements can use more than their outermost-shell electrons in bonding. The simple valence count is a learning guide, not a complete description of every chemical state."));
+
+        detailGrid.add(detailCard("DISCOVERY & HISTORY", discoveryFacts[z - 1]));
+        detailGrid.add(detailCard("USES & WHY IT MATTERS", elementUses[z - 1]));
+        detailGrid.add(detailCard("OCCURRENCE & ISOTOPES", getOccurrenceInfo(z) + "\n\n" + getIsotopeInfo(z)));
+        detailGrid.add(detailCard("CHEMISTRY NOTES", getChemistryNote(z)));
+
+        JScrollPane scroll = new JScrollPane(detailGrid);
+        scroll.setBorder(BorderFactory.createEmptyBorder());
+        scroll.setOpaque(false);
+        scroll.getViewport().setOpaque(false);
+        scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.getVerticalScrollBar().setUnitIncrement(18);
+        scroll.getVerticalScrollBar().setBackground(NAVY_LIGHT);
+        scroll.getVerticalScrollBar().setForeground(TEAL);
+        root.add(scroll, BorderLayout.CENTER);
+
+        JPanel footer = new JPanel(new BorderLayout(10, 0));
+        footer.setOpaque(false);
+        JLabel note = label("Tap another tile to explore another element.", 11, MUTED, Font.PLAIN);
+        footer.add(note, BorderLayout.WEST);
+        JButton close = actionButton("DONE  ✓", TEAL, NAVY);
+        close.addActionListener(e -> dialog.dispose());
+        footer.add(close, BorderLayout.EAST);
+        root.add(footer, BorderLayout.SOUTH);
+
+        dialog.setContentPane(root);
+        dialog.setVisible(true);
+    }
+
+    private JPanel detailCard(String title, String body) {
+        CardPanel card = new CardPanel(CARD, 16);
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setBorder(new EmptyBorder(14, 15, 14, 15));
+        JLabel heading = label(title, 11, TEAL, Font.BOLD);
+        heading.setAlignmentX(Component.LEFT_ALIGNMENT);
+        card.add(heading);
+        card.add(Box.createVerticalStrut(9));
+        JTextArea text = new JTextArea(body);
+        text.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        text.setForeground(WHITE);
+        text.setBackground(CARD);
+        text.setOpaque(false);
+        text.setEditable(false);
+        text.setFocusable(false);
+        text.setLineWrap(true);
+        text.setWrapStyleWord(true);
+        text.setBorder(BorderFactory.createEmptyBorder());
+        text.setColumns(27);
+        int lines = Math.max(3, Math.min(13, (body.length() / 43) + 2));
+        text.setRows(lines);
+        text.setAlignmentX(Component.LEFT_ALIGNMENT);
+        card.add(text);
+        card.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return card;
+    }
+
+    private int getPeriod(int z) {
+        if (z <= 2) return 1;
+        if (z <= 10) return 2;
+        if (z <= 18) return 3;
+        if (z <= 36) return 4;
+        if (z <= 54) return 5;
+        if (z <= 86) return 6;
+        return 7;
+    }
+
+    private String getGroupLabel(int z) {
+        if (z >= 58 && z <= 71) return "Lanthanide series";
+        if (z >= 90 && z <= 103) return "Actinide series";
+        int group = z == 57 || z == 89 ? 3 : positionFor(z)[1] + 1;
+        return "Group " + group;
+    }
+
+    private String getBlock(int z) {
+        if ((z >= 58 && z <= 71) || (z >= 90 && z <= 103)) return "f-block";
+        int group = z == 57 || z == 89 ? 3 : positionFor(z)[1] + 1;
+        if (group <= 2) return "s-block";
+        if (group <= 12) return "d-block";
+        return "p-block";
+    }
+
+    private String getCategory(int z) {
+        if (z == 1) return "Nonmetal";
+        if (z == 2 || z == 10 || z == 18 || z == 36 || z == 54 || z == 86 || z == 118) return "Noble gas";
+        if (z == 3 || z == 11 || z == 19 || z == 37 || z == 55 || z == 87) return "Alkali metal";
+        if (z == 4 || z == 12 || z == 20 || z == 38 || z == 56 || z == 88) return "Alkaline earth metal";
+        if (z >= 57 && z <= 71) return "Lanthanide";
+        if (z >= 89 && z <= 103) return "Actinide";
+        if ((z >= 21 && z <= 30) || (z >= 39 && z <= 48) || (z >= 72 && z <= 80) || (z >= 104 && z <= 112)) return "Transition metal";
+        if (z == 9 || z == 17 || z == 35 || z == 53 || z == 85 || z == 117) return "Halogen";
+        if (z == 5 || z == 14 || z == 32 || z == 33 || z == 51 || z == 52 || z == 84) return "Metalloid (classification may vary)";
+        if (z == 6 || z == 7 || z == 8 || z == 15 || z == 16 || z == 34) return "Other nonmetal";
+        if (z == 13 || z == 31 || z == 49 || z == 50 || z == 81 || z == 82 || z == 83 || z == 113 || z == 114 || z == 115 || z == 116) return "Post-transition metal / predicted metal";
+        if (z == 85) return "Halogen";
+        return "Metal or predicted metal";
+    }
+
+    private String getState(int z) {
+        if (z >= 104) return "Not directly established; predicted properties";
+        if (z == 1 || z == 2 || z == 7 || z == 8 || z == 9 || z == 10 || z == 17 || z == 18 || z == 36 || z == 54 || z == 86) return "Gas";
+        if (z == 35 || z == 80) return "Liquid";
+        if (z == 118) return "Unknown; often predicted to be a solid";
+        return "Solid";
+    }
+
+    private String getValenceInfo(int z) {
+        if (z == 2) return "2 (full first shell)";
+        if (z >= 58 && z <= 71) return "Usually 2–3 outer-shell electrons; f-electrons can also affect bonding";
+        if (z >= 90 && z <= 103) return "Variable; outer s, d, and f electrons may participate";
+        if ((z >= 21 && z <= 30) || (z >= 39 && z <= 48) || (z >= 72 && z <= 80) || (z >= 104 && z <= 112)) return "Variable; d-electrons may also participate in bonding";
+        if (z == 57 || z == 89) return "Usually 2–3; bonding can involve d-electrons";
+        int group = positionFor(z)[1] + 1;
+        if (group == 1) return "1";
+        if (group == 2) return "2";
+        if (group >= 13 && group <= 18) return String.valueOf(group - 10);
+        return "Variable; depends on the compound and bonding state";
+    }
+
+    private String getElectronConfiguration(int z) {
+        // Aufbau order gives a useful introductory model. Correct several well-known exceptions.
+        int[] shells = {1,2,2,3,3,4,3,4,5,4,5,6,4,5,6,7,5,6,7};
+        String[] orbitals = {"s","s","p","s","p","s","d","p","s","d","p","s","f","d","p","s","f","d","p"};
+        int[] capacities = {2,2,6,2,6,2,10,6,2,10,6,2,14,10,6,2,14,10,6};
+        int[] filled = new int[capacities.length];
+        int remaining = z;
+        for (int i = 0; i < capacities.length && remaining > 0; i++) {
+            filled[i] = Math.min(capacities[i], remaining);
+            remaining -= filled[i];
+        }
+        // Known ground-state exceptions (subshell indices follow the arrays above).
+        int[] fixes = configurationFix(z);
+        if (fixes != null) filled = fixes;
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < filled.length; i++) {
+            if (filled[i] > 0) {
+                if (result.length() > 0) result.append(' ');
+                result.append(shells[i]).append(orbitals[i]).append(toSuperscript(filled[i]));
+            }
+        }
+        return result.toString();
+    }
+
+    private int[] configurationFix(int z) {
+        int[] shellsCap = {2,2,6,2,6,2,10,6,2,10,6,2,14,10,6,2,14,10,6};
+        int[] filled = new int[shellsCap.length];
+        int left = z;
+        for (int i = 0; i < shellsCap.length && left > 0; i++) {
+            filled[i] = Math.min(shellsCap[i], left);
+            left -= filled[i];
+        }
+        switch (z) {
+            case 24: filled[5]=1; filled[6]=5; break; // Cr
+            case 29: filled[5]=1; filled[6]=10; break; // Cu
+            case 41: filled[8]=1; filled[9]=4; break; // Nb
+            case 42: filled[8]=1; filled[9]=5; break; // Mo
+            case 44: filled[8]=1; filled[9]=7; break; // Ru
+            case 45: filled[8]=1; filled[9]=8; break; // Rh
+            case 46: filled[8]=0; filled[9]=10; break; // Pd
+            case 47: filled[8]=1; filled[9]=10; break; // Ag
+            case 57: filled[12]=0; filled[13]=1; break; // La
+            case 58: filled[12]=1; filled[13]=1; break; // Ce
+            case 64: filled[12]=7; filled[13]=1; break; // Gd
+            case 78: filled[11]=1; filled[13]=9; break; // Pt
+            case 79: filled[11]=1; filled[13]=10; break; // Au
+            case 89: filled[16]=0; filled[17]=1; break; // Ac
+            case 90: filled[16]=0; filled[17]=2; break; // Th
+            case 91: filled[16]=2; filled[17]=1; break; // Pa
+            case 92: filled[16]=3; filled[17]=1; break; // U
+            case 93: filled[16]=4; filled[17]=1; break; // Np
+            case 96: filled[16]=7; filled[17]=1; break; // Cm
+            case 103: filled[17]=0; filled[18]=1; break; // Lr
+            default: return null;
+        }
+        return filled;
+    }
+
+    private String toSuperscript(int value) {
+        String digits = String.valueOf(value);
+        String from = "0123456789";
+        String to = "⁰¹²³⁴⁵⁶⁷⁸⁹";
+        StringBuilder out = new StringBuilder();
+        for (int i = 0; i < digits.length(); i++) out.append(to.charAt(from.indexOf(digits.charAt(i))));
+        return out.toString();
+    }
+
+    private String getShellDistribution(int z) {
+        int[] shells = {1,2,2,3,3,4,3,4,5,4,5,6,4,5,6,7,5,6,7};
+        int[] capacities = {2,2,6,2,6,2,10,6,2,10,6,2,14,10,6,2,14,10,6};
+        int[] filled = new int[capacities.length];
+        int remaining = z;
+        for (int i = 0; i < capacities.length && remaining > 0; i++) {
+            filled[i] = Math.min(capacities[i], remaining);
+            remaining -= filled[i];
+        }
+        int[] fixes = configurationFix(z);
+        if (fixes != null) filled = fixes;
+        int[] byShell = new int[8];
+        for (int i = 0; i < filled.length; i++) byShell[shells[i]] += filled[i];
+        StringBuilder result = new StringBuilder();
+        for (int n = 1; n <= 7; n++) {
+            if (byShell[n] > 0) {
+                if (result.length() > 0) result.append(", ");
+                result.append(byShell[n]);
+            }
+        }
+        return result.toString();
+    }
+
+    private String getOccurrenceInfo(int z) {
+        if (z >= 95) return "This element is made artificially in nuclear or particle-accelerator experiments. Only extremely small amounts are available.";
+        if (z >= 93) return "This is a transuranium element. It can be produced artificially; tiny traces may occur in special natural or reactor environments.";
+        if (z == 43 || z == 61) return "Technetium and promethium have no stable isotopes and occur naturally only in very small traces; most samples are produced artificially.";
+        if (z >= 84) return "This element is radioactive. Some heavier elements occur naturally in decay chains or in trace amounts, while others are mostly produced artificially.";
+        if (z <= 2) return "Found throughout the universe; hydrogen is especially abundant, and helium is common in stars and some natural gas deposits.";
+        if (z <= 10) return "Occurs naturally in Earth's atmosphere, water, rocks, or minerals, and also has important roles in stars and space chemistry.";
+        if (z <= 92) return "Occurs in Earth's crust, oceans, atmosphere, or minerals. Its abundance varies widely; some elements are common, while others are rare.";
+        return "Occurrence is limited and depends on radioactive decay and human-made production.";
+    }
+
+    private String getIsotopeInfo(int z) {
+        if (z == 43 || z == 61 || z >= 83) return "Isotope note: no stable isotopes are known. Different isotopes contain the same number of protons but different numbers of neutrons.";
+        return "Isotope note: at least one stable isotope is known. The atomic mass shown above is a standard average (or a representative isotope mass for elements without a stable isotope). Isotopes of an element differ in neutron count.";
+    }
+
+    private String getChemistryNote(int z) {
+        String category = getCategory(z);
+        String state = getState(z);
+        String text = "Family: " + category + ". It shares patterns with elements in related parts of the periodic table, but its exact behavior depends on temperature, pressure, chemical partners, and oxidation state.\n" +
+            "Physical state near room temperature: " + state + ".\n";
+        if (z >= 104) text += "Because only a few atoms have been made and they decay quickly, many properties are predictions rather than measurements.\n";
+        if (z == 9 || z == 17 || z == 35 || z == 53 || z == 85 || z == 117) text += "Halogens commonly form salts with metals and often gain one electron in simple ionic compounds.\n";
+        if (z == 2 || z == 10 || z == 18 || z == 36 || z == 54 || z == 86 || z == 118) text += "Noble gases have full outer electron shells in the simple model, so they are usually much less reactive than nearby elements.\n";
+        if (z == 5 || z == 14 || z == 32 || z == 33 || z == 51 || z == 52) text += "Metalloids show a mixture of metallic and nonmetallic properties and are important in semiconductor or specialty materials science.\n";
+        if (z >= 57 && z <= 71) text += "Lanthanides are often grouped as rare-earth elements and commonly have similar +3 chemistry.\n";
+        if (z >= 89 && z <= 103) text += "Actinides are radioactive; many show several oxidation states and are important in nuclear science.\n";
+        return text;
+    }
+
     private void styleCombo(JComboBox<String> combo) {
+        // Force Swing's basic combo box UI so Windows' native theme cannot
+        // paint the closed field white while the text is white.
+        combo.setUI(new BasicComboBoxUI() {
+            @Override
+            protected JButton createArrowButton() {
+                JButton arrow = new JButton("▾");
+                arrow.setFont(new Font("SansSerif", Font.BOLD, 14));
+                arrow.setForeground(TEAL);
+                arrow.setBackground(CARD_LIGHT);
+                arrow.setOpaque(true);
+                arrow.setFocusPainted(false);
+                arrow.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+                arrow.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                return arrow;
+            }
+
+            @Override
+            public void paintCurrentValueBackground(Graphics g, Rectangle bounds, boolean hasFocus) {
+                g.setColor(CARD_LIGHT);
+                g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
+            }
+        });
+
         combo.setFont(new Font("SansSerif", Font.PLAIN, 14));
         combo.setForeground(WHITE);
         combo.setBackground(CARD_LIGHT);
         combo.setOpaque(true);
         combo.setFocusable(true);
         combo.setEditable(false);
+        combo.setLightWeightPopupEnabled(true);
         combo.setMaximumRowCount(12);
         combo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
         combo.setPreferredSize(new Dimension(300, 44));
@@ -650,8 +1171,7 @@ public class ElementMaster extends JFrame {
             BorderFactory.createLineBorder(new Color(69, 91, 139), 1, true),
             BorderFactory.createEmptyBorder(3, 8, 3, 8)));
 
-        // Set colors for both the closed combo box and every row in its popup.
-        // This prevents the white-text-on-white-background problem on Windows.
+        // Style both the selected value shown before opening and the popup rows.
         combo.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(
@@ -662,7 +1182,7 @@ public class ElementMaster extends JFrame {
                 item.setOpaque(true);
                 item.setFont(new Font("SansSerif", Font.PLAIN, 14));
                 item.setBorder(new EmptyBorder(8, 10, 8, 10));
-                if (isSelected) {
+                if (isSelected && index >= 0) {
                     item.setBackground(TEAL);
                     item.setForeground(NAVY);
                 } else {
@@ -672,19 +1192,11 @@ public class ElementMaster extends JFrame {
                 return item;
             }
         });
-        combo.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            @Override
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent event) {
-                Component child = combo.getAccessibleContext().getAccessibleChild(0) instanceof Component
-                    ? (Component) combo.getAccessibleContext().getAccessibleChild(0) : null;
-                if (child instanceof JPopupMenu) {
-                    child.setBackground(CARD_LIGHT);
-                    child.setForeground(WHITE);
-                }
-            }
-            @Override public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent event) { }
-            @Override public void popupMenuCanceled(javax.swing.event.PopupMenuEvent event) { }
-        });
+
+        // A dark popup with readable white options, including when Windows uses
+        // a different system theme.
+        combo.putClientProperty("JComboBox.isTableCellEditor", Boolean.TRUE);
+        combo.setToolTipText("Choose a quiz collection or question style");
     }
 
     private void updateRangeControls() {
@@ -734,14 +1246,19 @@ public class ElementMaster extends JFrame {
     }
 
     private class MiniTile extends JPanel {
+        private final javax.swing.border.Border normalBorder = BorderFactory.createLineBorder(new Color(255, 255, 255, 65), 1);
+        private final javax.swing.border.Border hoverBorder = BorderFactory.createLineBorder(WHITE, 2);
+
         MiniTile(int atomicNumber) {
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             setBackground(familyColor(atomicNumber));
-            setBorder(BorderFactory.createLineBorder(new Color(255, 255, 255, 60), 1));
-            setToolTipText(atomicNumber + " — " + names[atomicNumber - 1] + " (" + symbols[atomicNumber - 1] + ")");
+            setBorder(normalBorder);
+            setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            setFocusable(true);
+            setToolTipText("Click to explore " + names[atomicNumber - 1] + " (" + symbols[atomicNumber - 1] + ")");
             JLabel number = new JLabel(String.valueOf(atomicNumber));
             number.setFont(new Font("SansSerif", Font.PLAIN, 7));
-            number.setForeground(new Color(255, 255, 255, 220));
+            number.setForeground(new Color(255, 255, 255, 230));
             number.setAlignmentX(Component.CENTER_ALIGNMENT);
             JLabel symbol = new JLabel(symbols[atomicNumber - 1]);
             symbol.setFont(new Font("SansSerif", Font.BOLD, 10));
@@ -751,6 +1268,25 @@ public class ElementMaster extends JFrame {
             add(number);
             add(symbol);
             add(Box.createVerticalGlue());
+
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    setBorder(hoverBorder);
+                    repaint();
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    setBorder(normalBorder);
+                    repaint();
+                }
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (SwingUtilities.isLeftMouseButton(e)) showElementDetails(atomicNumber);
+                }
+            });
+            getAccessibleContext().setAccessibleName(names[atomicNumber - 1] + ", atomic number " + atomicNumber);
+            getAccessibleContext().setAccessibleDescription("Open details about " + names[atomicNumber - 1]);
         }
     }
 
