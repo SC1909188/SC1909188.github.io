@@ -182,6 +182,11 @@ public class ElementMaster extends JFrame {
         rangePanel.add(spinnerCard("TO", endNumber));
         card.add(rangePanel);
         card.add(Box.createVerticalStrut(12));
+        JLabel rangeHint = wrappedLabel("The FROM and TO values are used when Test Collection is set to Custom range.", 10, MUTED);
+        card.add(rangeHint);
+        card.add(Box.createVerticalStrut(10));
+        setChoice.addActionListener(e -> updateRangeControls());
+        updateRangeControls();
 
         shuffleBox = new JCheckBox("Shuffle questions for a fresh challenge");
         shuffleBox.setSelected(true);
@@ -635,9 +640,60 @@ public class ElementMaster extends JFrame {
         combo.setFont(new Font("SansSerif", Font.PLAIN, 14));
         combo.setForeground(WHITE);
         combo.setBackground(CARD_LIGHT);
-        combo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
-        combo.setPreferredSize(new Dimension(300, 42));
-        combo.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
+        combo.setOpaque(true);
+        combo.setFocusable(true);
+        combo.setEditable(false);
+        combo.setMaximumRowCount(12);
+        combo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
+        combo.setPreferredSize(new Dimension(300, 44));
+        combo.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(69, 91, 139), 1, true),
+            BorderFactory.createEmptyBorder(3, 8, 3, 8)));
+
+        // Set colors for both the closed combo box and every row in its popup.
+        // This prevents the white-text-on-white-background problem on Windows.
+        combo.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(
+                    JList<?> list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+                JLabel item = (JLabel) super.getListCellRendererComponent(
+                    list, value, index, isSelected, cellHasFocus);
+                item.setOpaque(true);
+                item.setFont(new Font("SansSerif", Font.PLAIN, 14));
+                item.setBorder(new EmptyBorder(8, 10, 8, 10));
+                if (isSelected) {
+                    item.setBackground(TEAL);
+                    item.setForeground(NAVY);
+                } else {
+                    item.setBackground(CARD_LIGHT);
+                    item.setForeground(WHITE);
+                }
+                return item;
+            }
+        });
+        combo.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            @Override
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent event) {
+                Component child = combo.getAccessibleContext().getAccessibleChild(0) instanceof Component
+                    ? (Component) combo.getAccessibleContext().getAccessibleChild(0) : null;
+                if (child instanceof JPopupMenu) {
+                    child.setBackground(CARD_LIGHT);
+                    child.setForeground(WHITE);
+                }
+            }
+            @Override public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent event) { }
+            @Override public void popupMenuCanceled(javax.swing.event.PopupMenuEvent event) { }
+        });
+    }
+
+    private void updateRangeControls() {
+        if (startNumber == null || endNumber == null || setChoice == null) return;
+        boolean customRange = "Custom range".equals(setChoice.getSelectedItem());
+        startNumber.setEnabled(customRange);
+        endNumber.setEnabled(customRange);
+        startNumber.setToolTipText(customRange ? "First atomic number to include" : "Choose Custom range to edit this value");
+        endNumber.setToolTipText(customRange ? "Last atomic number to include" : "Choose Custom range to edit this value");
     }
 
     private JButton actionButton(String text, Color background, Color foreground) {
@@ -787,6 +843,15 @@ public class ElementMaster extends JFrame {
             } catch (Exception ignored) {
                 // The default Swing look and feel will be used if this fails.
             }
+            // Keep native Swing controls readable on the dark app theme.
+            UIManager.put("ComboBox.background", CARD_LIGHT);
+            UIManager.put("ComboBox.foreground", WHITE);
+            UIManager.put("ComboBox.selectionBackground", TEAL);
+            UIManager.put("ComboBox.selectionForeground", NAVY);
+            UIManager.put("List.background", CARD_LIGHT);
+            UIManager.put("List.foreground", WHITE);
+            UIManager.put("List.selectionBackground", TEAL);
+            UIManager.put("List.selectionForeground", NAVY);
             ElementMaster app = new ElementMaster();
             app.setVisible(true);
         });
