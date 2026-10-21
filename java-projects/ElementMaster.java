@@ -4,6 +4,9 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -269,6 +272,7 @@ public class ElementMaster extends JFrame {
     private List<Integer> quizNumbers = new ArrayList<>();
     private int questionIndex;
     private int score;
+    private int wrongAnswerCount;
     private boolean answered;
     private String actualType;
     private String lastSelectedSet = "Custom range";
@@ -695,6 +699,7 @@ public class ElementMaster extends JFrame {
         lastEnd = end;
         questionIndex = 0;
         score = 0;
+        wrongAnswerCount = 0;
         showQuestion();
         screens.show(screenHolder, "QUIZ");
     }
@@ -809,6 +814,7 @@ public class ElementMaster extends JFrame {
         } else {
             feedbackLabel.setText("Not quite — the answer is " + correctAnswer + ".");
             feedbackLabel.setForeground(RED);
+            showWrongAnswerImage();
         }
         answered = true;
         answerField.setEnabled(false);
@@ -816,6 +822,89 @@ public class ElementMaster extends JFrame {
         submitButton.setBackground(BLUE);
         scoreLabel.setText("SCORE  " + score);
         progressBar.setValue((int) ((questionIndex + 1) * 100.0 / quizNumbers.size()));
+    }
+
+    private void showWrongAnswerImage() {
+        wrongAnswerCount++;
+
+        // The first three wrong answers use the three pictures in the order supplied.
+        int pictureNumber = Math.min(wrongAnswerCount, 3);
+        String[] effects = {
+            "🔥  FLAMES!  🔥",
+            "⚡  THUNDER!  ⚡",
+            "🌩️  THUNDER AND LIGHTNING!  ⚡"
+        };
+        String[] fileNames = {
+            "wrong-answer-1.jpg",
+            "wrong-answer-2.jpg",
+            "wrong-answer-3.jpg"
+        };
+
+        ImageIcon originalIcon = loadWrongAnswerImage(fileNames[pictureNumber - 1]);
+        JDialog dialog = new JDialog(this, "Wrong Answer!", true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBackground(NAVY);
+        panel.setBorder(new EmptyBorder(14, 14, 14, 14));
+
+        JLabel effectLabel = new JLabel(effects[pictureNumber - 1], SwingConstants.CENTER);
+        effectLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+        effectLabel.setForeground(pictureNumber == 1 ? new Color(255, 116, 50) :
+            pictureNumber == 2 ? new Color(110, 190, 255) : new Color(190, 170, 255));
+        panel.add(effectLabel, BorderLayout.NORTH);
+
+        JLabel pictureLabel = new JLabel("", SwingConstants.CENTER);
+        if (originalIcon != null) {
+            Image scaled = originalIcon.getImage().getScaledInstance(520, 360, Image.SCALE_SMOOTH);
+            pictureLabel.setIcon(new ImageIcon(scaled));
+        } else {
+            pictureLabel.setText("Picture not found: " + fileNames[pictureNumber - 1]);
+            pictureLabel.setForeground(WHITE);
+        }
+        panel.add(pictureLabel, BorderLayout.CENTER);
+
+        String message = wrongAnswerCount <= 3
+            ? "Wrong answer #" + wrongAnswerCount + " — keep going!"
+            : "Another miss! You've got this — try the next one.";
+        JLabel messageLabel = new JLabel(message, SwingConstants.CENTER);
+        messageLabel.setForeground(MUTED);
+        messageLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        panel.add(messageLabel, BorderLayout.SOUTH);
+
+        JButton closeButton = actionButton("BACK TO QUIZ", TEAL, NAVY);
+        closeButton.addActionListener(e -> dialog.dispose());
+        JPanel buttonHolder = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonHolder.setOpaque(false);
+        buttonHolder.add(closeButton);
+        JPanel bottom = new JPanel(new BorderLayout(0, 8));
+        bottom.setOpaque(false);
+        bottom.add(messageLabel, BorderLayout.NORTH);
+        bottom.add(buttonHolder, BorderLayout.SOUTH);
+        panel.remove(messageLabel);
+        panel.add(bottom, BorderLayout.SOUTH);
+
+        dialog.setContentPane(panel);
+        dialog.setSize(590, 500);
+        dialog.setResizable(false);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }
+
+    private ImageIcon loadWrongAnswerImage(String fileName) {
+        // Works when running from the folder containing the Java file and image files.
+        File imageFile = new File(fileName);
+        if (!imageFile.isFile()) {
+            imageFile = new File("java-projects", fileName);
+        }
+        if (imageFile.isFile()) {
+            return new ImageIcon(imageFile.getAbsolutePath());
+        }
+        java.net.URL resource = getClass().getResource("/" + fileName);
+        if (resource != null) {
+            return new ImageIcon(resource);
+        }
+        return null;
     }
 
     private void finishQuiz() {
