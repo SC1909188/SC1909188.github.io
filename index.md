@@ -2,6 +2,12 @@
 
 ## Projects
 
+## Safety, Law, and Ethics Website
+
+**Privacy Under Pressure** — Learn about location privacy, technology ethics, and U.S. privacy law through interactive scenarios and a quiz.
+
+[Open Privacy Under Pressure](privacy/)
+
 ### Python Projects
 
 - **[Python Fishing Game](https://github.com/SC1909188)** — A fishing game made with Python and Pygame.
