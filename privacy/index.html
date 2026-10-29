@@ -869,76 +869,157 @@ footer p { margin: 0; }
 </main>
 
 <script>
+
 const scenarios = [
   {
+    difficulty: "EASY",
     topic: "LOCATION PRIVACY",
-    title: "The always-on navigation app",
-    story: "A navigation app works while you travel, but it also requests access to your location when you are not using it. The app does not clearly explain why it needs background access.",
-    question: "What is the most responsible next step for the design team?",
+    title: "1. The navigation trade-off",
+    story: "A navigation app wants to improve directions. Design A uses precise location while navigating and deletes raw trip data after 7 days. Design B keeps detailed trip histories for 90 days to improve traffic predictions.",
+    question: "Which design is the stronger starting point?",
     answers: [
       {
-        text: "Keep background tracking enabled by default because more data might be useful later.",
-        correct: false,
-        feedback: "Collecting extra data without a clear need can create unnecessary privacy risks. More data is not automatically better."
+        text: "Design A: Limit location tracking and delete detailed histories sooner, while measuring whether navigation quality remains useful.",
+        correct: true,
+        feedback: "Why this is stronger: Design A limits how long detailed location data exists. The team should still test whether 7 days meets legitimate troubleshooting and service needs."
       },
       {
-        text: "Explain the purpose, assess whether background access is necessary, and offer meaningful controls.",
-        correct: true,
-        feedback: "This approach combines transparency, data minimization, and user control. The team should also check applicable legal requirements."
+        text: "Design B: Keep detailed histories longer because more information can improve predictions.",
+        correct: false,
+        feedback: "Why this is weaker: More data may help predictions, but keeping detailed histories for 90 days increases exposure and misuse risks. The company should demonstrate that the extra retention provides a meaningful benefit that cannot reasonably be achieved with less data."
       }
     ]
   },
   {
+    difficulty: "EASY",
+    topic: "INFORMED CONSENT",
+    title: "2. The confusing permission screen",
+    story: "A weather app requests location access. One design explains the purpose in plain language and asks when the feature is needed. Another places a broad explanation inside a lengthy privacy notice.",
+    question: "Which design better supports an informed user decision?",
+    answers: [
+      {
+        text: "Use the lengthy notice because all the information is technically available somewhere.",
+        correct: false,
+        feedback: "Why this is weaker: Information can be available without being understandable. Users may not realize what they are agreeing to if important consequences are difficult to find or explain."
+      },
+      {
+        text: "Explain the purpose at the point of use and request only the access needed for that feature.",
+        correct: true,
+        feedback: "Why this is stronger: Clear, timely explanations help users understand the choice. The app should also provide appropriate settings and avoid requesting unnecessary access."
+      }
+    ]
+  },
+  {
+    difficulty: "EASY",
+    topic: "DATA SECURITY",
+    title: "3. Who needs access?",
+    story: "A company has customer trip records. Support staff occasionally need limited information to solve problems, but most employees do not need access to location histories.",
+    question: "Which access policy is more responsible?",
+    answers: [
+      {
+        text: "Allow all employees to access the records because they work for the company.",
+        correct: false,
+        feedback: "Why this is weaker: Employment alone does not establish a need to see personal information. Broad access increases the possibility of accidental exposure, misuse, and unauthorized browsing."
+      },
+      {
+        text: "Give employees access based on job duties, log sensitive access, and review unusual activity.",
+        correct: true,
+        feedback: "Why this is stronger: Limiting access to legitimate tasks reduces risk while still allowing support work. Logging and review provide accountability, although they should complement other security safeguards."
+      }
+    ]
+  },
+  {
+    difficulty: "MEDIUM",
+    topic: "BUSINESS NEEDS",
+    title: "4. Free service or subscription?",
+    story: "A navigation company needs revenue. Design A offers a free service with contextual advertising and minimal data sharing. Design B charges a subscription and limits advertising-related data collection. Some users cannot afford a subscription.",
+    question: "What is the best way to evaluate these designs?",
+    answers: [
+      {
+        text: "Choose the subscription automatically because paid services are always more private.",
+        correct: false,
+        feedback: "Why this is weaker: A subscription does not guarantee good privacy practices. The company still needs to examine what data it collects, how it protects it, and whether its claims are accurate."
+      },
+      {
+        text: "Compare the actual data practices, revenue requirements, user affordability, and available privacy controls before choosing.",
+        correct: true,
+        feedback: "Why this is stronger: Neither business model guarantees the best outcome. Evaluating real data flows and the impact on different users can reveal whether a hybrid or alternative design meets the company's needs with fewer privacy costs."
+      }
+    ]
+  },
+  {
+    difficulty: "MEDIUM",
     topic: "DATA RETENTION",
-    title: "The forgotten location history",
-    story: "A company stores detailed location histories indefinitely, even though its service only needs recent information to provide its main feature.",
-    question: "Which approach best reflects responsible data management?",
+    title: "5. Keeping data for better predictions",
+    story: "A traffic service wants to keep identifiable trip histories for 90 days. Its researchers believe this could improve predictions. An alternative deletes identifiable records after 7 days and keeps aggregated traffic statistics for longer.",
+    question: "What evidence should guide the decision?",
     answers: [
       {
-        text: "Keep everything forever in case the company invents a future use.",
-        correct: false,
-        feedback: "Indefinite retention can increase exposure and misuse risks. A possible future use is not, by itself, a strong justification."
+        text: "Compare prediction quality and operational needs using both approaches, then retain identifiable data only as long as justified.",
+        correct: true,
+        feedback: "Why this is stronger: The company can test whether longer retention delivers a significant benefit. Aggregated data may reduce privacy risks, although aggregation does not automatically eliminate every risk of re-identification."
       },
       {
-        text: "Set a justified retention period, explain it, and securely delete information when it is no longer needed.",
-        correct: true,
-        feedback: "A clear retention policy supports data minimization and accountability. The exact legal obligations depend on the circumstances."
+        text: "Keep all identifiable histories for 90 days because research might eventually discover a benefit.",
+        correct: false,
+        feedback: "Why this is weaker: A hypothetical future benefit does not demonstrate that extensive retention is necessary. Longer retention increases the amount of information that could be exposed or misused."
       }
     ]
   },
   {
-    topic: "SHARING & CONSENT",
-    title: "The unexpected advertising partner",
-    story: "A free app plans to share precise location data with an advertising partner. Users may not realize that installing the app could lead to this sharing.",
-    question: "What should the company prioritize?",
+    difficulty: "MEDIUM",
+    topic: "LOCATION ACCURACY",
+    title: "6. Precision versus battery life",
+    story: "A navigation app compares two designs. Design A continuously uses precise location, improving some route updates but consuming more battery. Design B uses less frequent updates and requests more precise location when approaching complicated turns.",
+    question: "Which evaluation approach makes the most sense?",
     answers: [
       {
-        text: "Make the sharing clear, evaluate whether it is necessary, and provide appropriate choices before it happens.",
-        correct: true,
-        feedback: "People should be able to understand important data practices. Transparency, appropriate consent, and minimizing disclosure help reduce privacy risks."
+        text: "Use continuous precise tracking everywhere because navigation accuracy should always come first.",
+        correct: false,
+        feedback: "Why this is weaker: Accuracy matters, but continuous precision may consume unnecessary battery and collect more detailed information than needed in some situations. The team should test whether constant tracking actually improves outcomes enough to justify those costs."
       },
       {
-        text: "Hide the practice deep in a long notice because the app is free.",
-        correct: false,
-        feedback: "A difficult-to-find disclosure can undermine meaningful understanding. Offering a free service does not erase ethical responsibilities or applicable legal obligations."
+        text: "Test both designs in realistic conditions and use the least intrusive approach that still meets the required navigation performance.",
+        correct: true,
+        feedback: "Why this is stronger: Real-world testing can reveal when precise updates are necessary and when less frequent updates work well. The decision should consider accuracy, safety, battery use, privacy, and user expectations."
       }
     ]
   },
   {
-    topic: "ACCESS & SECURITY",
-    title: "The curious employee",
-    story: "An employee at a service provider can view customers' location records. The employee's job does not require that access, but the system does not restrict it.",
-    question: "What is the strongest improvement?",
+    difficulty: "HARD",
+    topic: "ETHICS VS. LAW",
+    title: "7. Legal does not always mean ethical",
+    story: "A company reviews a data-sharing practice and believes it complies with the laws that apply to its service. Some users nevertheless find the practice surprising, and the company could offer a clearer explanation at relatively low cost.",
+    question: "What should the company do next?",
     answers: [
       {
-        text: "Let all employees view the records as long as they have signed a workplace agreement.",
+        text: "Stop reviewing the practice because legal compliance settles the ethical question.",
         correct: false,
-        feedback: "A written agreement does not replace technical safeguards. Access should be limited according to legitimate job responsibilities."
+        feedback: "Why this is weaker: Legal compliance is essential, but it does not automatically resolve questions of fairness, transparency, user expectations, or avoidable harm. The company should evaluate those concerns separately."
       },
       {
-        text: "Restrict access by role, review access logs, and investigate suspicious activity.",
+        text: "Confirm the applicable legal requirements and also assess transparency, user expectations, potential harms, and reasonable alternatives.",
         correct: true,
-        feedback: "Least-privilege access and monitoring reduce opportunities for misuse. Organizations should also train employees and respond to incidents appropriately."
+        feedback: "Why this is stronger: This approach separates legal obligations from broader ethical responsibilities. It avoids assuming that a practice is unlawful simply because it is unpopular, while still taking users' concerns seriously."
+      }
+    ]
+  },
+  {
+    difficulty: "HARD",
+    topic: "SECURITY VS. SUPPORT",
+    title: "8. An urgent customer complaint",
+    story: "A customer reports that their trip history appears to have been accessed improperly. Design A lets any support employee immediately inspect full trip histories. Design B restricts access and requires an audited approval for exceptional cases, which may delay some investigations.",
+    question: "Which design best balances security and the need to investigate?",
+    answers: [
+      {
+        text: "Use restricted, logged access with a practical emergency approval process and a way to investigate suspicious access.",
+        correct: true,
+        feedback: "Why this is stronger: It preserves a path for urgent investigations without making everyone's data broadly available. The process should be tested so safeguards do not create unreasonable delays during genuine incidents."
+      },
+      {
+        text: "Allow all support staff unrestricted access because investigation speed matters more than access controls.",
+        correct: false,
+        feedback: "Why this is weaker: Fast investigations matter, but unrestricted access creates another opportunity for misuse and makes accountability harder. A well-designed emergency process can support urgent cases while still limiting and recording access."
       }
     ]
   }
@@ -963,7 +1044,8 @@ function renderScenario() {
   const item = scenarios[current];
   document.getElementById("scenarioCounter").textContent =
     `SCENARIO ${String(current + 1).padStart(2, "0")} / ${String(scenarios.length).padStart(2, "0")}`;
-  document.getElementById("scenarioTopic").textContent = item.topic;
+ document.getElementById("scenarioTopic").textContent =
+  `${item.difficulty} · ${item.topic}`;
   progressFill.style.width = `${(current / scenarios.length) * 100}%`;
   progressBar.setAttribute("aria-valuenow", String(current));
 
