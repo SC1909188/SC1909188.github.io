@@ -1,28 +1,1167 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Privacy Under Pressure</title>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="An interactive learning lab exploring digital privacy, technology ethics, and the laws that protect people online.">
+<title>Privacy Under Pressure | Digital Ethics Lab</title>
+
 <style>
-:root{--navy:#17233b;--blue:#3559d8;--teal:#087f8c;--paper:#f5f7fb;--line:#dce3ef}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--navy);font:16px/1.6 system-ui,Arial,sans-serif}header{background:linear-gradient(120deg,#17233b,#284d9c);color:white;padding:40px 20px}.wrap{max-width:960px;margin:auto;padding:0 18px}h1{font-size:clamp(2.4rem,7vw,4rem);line-height:1.05;margin:.4em 0}header p{max-width:720px;color:#e3eaff;font-size:1.1rem}.pill{display:inline-block;border:1px solid #91a7e0;border-radius:30px;padding:4px 12px;margin:4px 4px 0 0}.card,.scenario{background:white;border:1px solid var(--line);border-radius:16px;padding:22px;margin:18px 0;box-shadow:0 8px 24px #1b31520a}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.kicker{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--blue)}h2{margin:.2em 0 .5em}button{font:inherit;cursor:pointer}.choice{display:flex;gap:12px;text-align:left;width:100%;padding:13px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--navy);margin:9px 0}.choice:hover,.choice:focus{border-color:var(--blue)}.choice b{display:block}.letter{background:#eef2ff;color:var(--blue);border-radius:8px;padding:4px 10px;height:max-content}.primary{background:var(--blue);color:white;border:0;border-radius:10px;padding:10px 16px;font-weight:700}.secondary{background:#eef1f8;color:var(--navy);border:1px solid var(--line);border-radius:10px;padding:9px 14px}.feedback{display:none;border-radius:10px;padding:13px;margin:14px 0}.feedback.show{display:block}.good{background:#e7f7ed;color:#174d34}.try{background:#fff0e4;color:#713b16}.progress{height:8px;background:#e8edf7;border-radius:10px;overflow:hidden;margin:12px 0}.progress div{height:100%;background:var(--blue);width:0}.callout{border-left:4px solid #e77835;padding:10px 14px;background:#fff7f0}.ethics{border-top:4px solid var(--teal)}.law{border-top:4px solid #e77835}textarea,input{width:100%;padding:11px;border:1px solid #bcc8db;border-radius:9px;font:inherit;margin:6px 0 12px}textarea{min-height:85px}a{color:#2348bd}footer{padding:24px 0;color:#596781}@media(max-width:680px){.grid{grid-template-columns:1fr}.card,.scenario{padding:17px}}
-</style></head><body>
-<header><div class="wrap"><div class="kicker" style="color:#b8d0ff">Safety • Law • Ethics / Interactive learning</div><h1>Privacy Under Pressure</h1><p>You’re helping design a navigation app. Decide what data is useful, what is fair to users, and what rules apply. Make choices, read the feedback, and think like a responsible developer.</p><span class="pill">GPS & personal data</span><span class="pill">Ethical design</span><span class="pill">U.S. federal law</span></div></header>
-<main class="wrap">
-<div class="grid"><section class="card"><div class="kicker">Your mission</div><h2>Think like a developer</h2><p>Choose the strongest response in each scenario. The point is not only your score—read the explanation to understand why a decision protects users or creates risk.</p><div class="callout"><b>Remember:</b> ethics asks what is fair and responsible; law sets enforceable requirements. They overlap, but they are not identical.</div></section><section class="card"><div class="kicker">Learning targets</div><h2>By the end, you can…</h2><ul><li>identify risks in location data</li><li>explain an ethical responsibility</li><li>describe a relevant U.S. law</li><li>justify a decision with evidence</li></ul></section></div>
-<section><div class="kicker">Level 1–4 / Decision game</div><h2>Choose your next move</h2><div class="scenario"><b id="score">Score: 0 / 4</b><div class="progress"><div id="bar"></div></div><h3 id="title"></h3><p id="question"></p><div id="options"></div><div id="feedback" class="feedback" aria-live="polite"></div><button id="next" class="primary" disabled>Next scenario →</button> <button id="restart" class="secondary">Restart game</button></div></section>
-<section><div class="kicker">Mini lesson</div><h2>Ethics and law: connected, not identical</h2><div class="grid"><article class="card ethics"><h3>Ethics: what should we do?</h3><p>Ethical design considers fairness, transparency, user choice, and avoidable harm. Ask whether data is genuinely needed, whether people understand its use, and whether a less intrusive design could work.</p><p><b>Example:</b> request location while navigation is being used, explain why, and make controls easy to find.</p></article><article class="card law"><h3>Law: what is required?</h3><p><b>Jurisdiction: United States, federal law.</b> Section 5 of the Federal Trade Commission Act prohibits unfair or deceptive acts or practices in or affecting commerce. Misleading privacy promises or unfair data handling can raise legal issues; whether a practice violates law depends on the facts and applicable rules.</p><p>COPPA applies to certain online services collecting personal information from children under 13; it is not a universal privacy law.</p></article></div></section>
-<section class="card"><div class="kicker">Apply it / Short response</div><h2>Make the case for your design</h2><p>Your team says: “Our privacy policy mentions location sharing, so we don't need to explain it when the feature starts.” Name one ethical concern and one change you recommend.</p><label for="response">Your explanation</label><textarea id="response" placeholder="I think the concern is… I would change the app by…"></textarea><button id="check" class="primary">Check my reasoning</button><div id="writing" class="feedback" aria-live="polite"></div><p><small>This is a learning prompt, not a grade. Your text stays in this page and is not sent anywhere.</small></p></section>
-<section class="card"><div class="kicker">Sources / Explore more</div><h2>Credible references</h2><ol><li><a href="https://www.ftc.gov/business-guidance/resources/marketing-your-mobile-app-get-it-right-start" target="_blank" rel="noopener">FTC: Marketing Your Mobile App—Get It Right from the Start</a> — federal guidance on privacy-by-design, clear disclosures, consent, and security.</li><li><a href="https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title15-section45&num=0&edition=prelim" target="_blank" rel="noopener">U.S. Code, Title 15, Section 45</a> — official law text for FTC Act Section 5.</li><li><a href="https://www.ftc.gov/legal-library/browse/rules/childrens-online-privacy-protection-rule-coppa" target="_blank" rel="noopener">FTC: Children’s Online Privacy Protection Rule (COPPA)</a> — official explanation of a federal rule for certain online collection from children under 13.</li><li><a href="https://consumer.ftc.gov/articles/heads-up" target="_blank" rel="noopener">FTC Consumer Advice: Heads Up—Stop. Think. Connect.</a> — practical advice on privacy settings and app permissions.</li></ol><small>Educational overview, not legal advice. Obligations depend on the service, data, users, and jurisdiction.</small></section>
-<section class="card"><div class="kicker">Project reflection</div><h2>Peer test & improvement log</h2><p>Ask a classmate to test the site. Record their actual feedback and one change you made because of it. Do not claim this step is complete until it happens.</p><label for="tester">Classmate tester (first name or initials)</label><input id="tester" placeholder="Fill after a real test"><label for="peer">What confused them or did not work?</label><textarea id="peer" placeholder="Record their actual feedback"></textarea><label for="improve">One improvement made</label><textarea id="improve" placeholder="Describe the change you made"></textarea><button class="secondary" id="prepare">Prepare reflection text</button><div id="reflection" class="feedback" aria-live="polite"></div><small>Copy the prepared reflection into your assignment notes. This page does not save or upload it.</small></section>
-</main><footer class="wrap">Privacy Under Pressure · Performance Standard 5.3.4 and 5.3.5</footer>
+:root {
+  --bg: #0b1020;
+  --panel: #121a2e;
+  --panel-light: #19243b;
+  --text: #f0f4ff;
+  --muted: #a5b1ca;
+  --accent: #83f0c8;
+  --blue: #91b9ff;
+  --border: #2b3854;
+  --danger: #ff9caa;
+  --radius: 18px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 85% 0%, #1b3150 0%, transparent 35%),
+    var(--bg);
+  color: var(--text);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  line-height: 1.65;
+}
+
+a { color: var(--accent); }
+a:hover { color: white; }
+
+button, input, textarea { font: inherit; }
+
+button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 17px;
+  font-weight: 750;
+  transition: transform .2s, background .2s;
+}
+
+button:hover { transform: translateY(-2px); }
+
+button:focus-visible, a:focus-visible,
+input:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.primary {
+  background: var(--accent);
+  color: #071a17;
+}
+
+.secondary {
+  background: var(--panel-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+header {
+  max-width: 1150px;
+  margin: auto;
+  padding: 24px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.brand {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 850;
+  letter-spacing: -.5px;
+}
+
+.brand span { color: var(--accent); }
+
+nav {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+nav a {
+  color: var(--muted);
+  font-size: .9rem;
+  text-decoration: none;
+}
+
+nav a:hover { color: var(--accent); }
+
+main {
+  max-width: 1100px;
+  padding: 0 24px 80px;
+  margin: auto;
+}
+
+.hero {
+  padding: 70px 0 55px;
+  display: grid;
+  grid-template-columns: 1.4fr .8fr;
+  gap: 35px;
+  align-items: center;
+}
+
+.eyebrow {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: .76rem;
+  font-weight: 850;
+}
+
+h1 {
+  font-size: clamp(2.8rem, 7vw, 5.2rem);
+  letter-spacing: -4px;
+  line-height: 1.03;
+  margin: 18px 0;
+}
+
+h1 span {
+  color: var(--accent);
+}
+
+h2 {
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  letter-spacing: -1px;
+  line-height: 1.2;
+}
+
+h3 { line-height: 1.3; }
+
+p { color: var(--muted); }
+
+.hero p {
+  max-width: 600px;
+  font-size: 1.08rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
+.hero-graphic {
+  min-height: 310px;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: linear-gradient(145deg, #192a42, #101629);
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.orbit {
+  width: 190px;
+  height: 190px;
+  border: 1px solid #42637c;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 70px #83f0c81c;
+}
+
+.shield {
+  width: 105px;
+  height: 120px;
+  background: var(--accent);
+  color: #102a25;
+  display: grid;
+  place-items: center;
+  font-size: 3.3rem;
+  clip-path: polygon(50% 0, 95% 18%, 88% 70%, 50% 100%, 12% 70%, 5% 18%);
+}
+
+.float-tag {
+  position: absolute;
+  background: #202d43;
+  border: 1px solid #40506a;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: #e3eaff;
+  font-size: .8rem;
+}
+
+.tag-one { top: 45px; left: 18px; }
+.tag-two { bottom: 45px; right: 18px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 20px 0 75px;
+}
+
+.stat {
+  background: #10182a;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 19px;
+}
+
+.stat strong {
+  display: block;
+  color: var(--accent);
+  font-size: 1.5rem;
+}
+
+.stat span {
+  color: var(--muted);
+  font-size: .88rem;
+}
+
+section { scroll-margin-top: 25px; margin: 75px 0; }
+
+.section-heading { max-width: 720px; margin-bottom: 28px; }
+
+.kicker {
+  color: var(--blue);
+  font-size: .76rem;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 25px;
+  min-width: 0;
+}
+
+.card p:last-child { margin-bottom: 0; }
+
+.icon {
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #24334a;
+  font-size: 1.35rem;
+  margin-bottom: 17px;
+}
+
+.card h3 { margin: 8px 0; }
+
+.pill {
+  display: inline-block;
+  font-size: .74rem;
+  padding: 4px 9px;
+  border-radius: 50px;
+  background: #223b3a;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.lab {
+  border: 1px solid #38594f;
+  background: linear-gradient(140deg, #142b2c, #111b2d 65%);
+  border-radius: 24px;
+  padding: clamp(22px, 5vw, 42px);
+}
+
+.lab-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.progress-track {
+  height: 8px;
+  background: #26354a;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 18px 0 30px;
+}
+
+#progressFill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width .3s;
+}
+
+.scenario-number {
+  color: var(--accent);
+  font-size: .85rem;
+  font-weight: 850;
+}
+
+.scenario h3 { font-size: 1.55rem; }
+
+.choice-list {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.choice {
+  width: 100%;
+  text-align: left;
+  padding: 18px;
+  background: #17243a;
+  border: 1px solid #36465f;
+  color: var(--text);
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+
+.choice:hover { background: #22334b; }
+
+.choice:disabled {
+  cursor: default;
+  opacity: 1;
+  transform: none;
+}
+
+.choice.selected { border-color: var(--accent); }
+
+.choice.correct { border-color: #83f0c8; background: #19372f; }
+.choice.incorrect { border-color: var(--danger); background: #3b2532; }
+
+.choice-letter {
+  flex: 0 0 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #2b3c53;
+  font-weight: 850;
+}
+
+.feedback {
+  border-left: 3px solid var(--accent);
+  padding: 14px 17px;
+  background: #182b30;
+  border-radius: 0 10px 10px 0;
+  margin: 20px 0;
+}
+
+.feedback p { margin: 5px 0 0; }
+
+.lab-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.result-panel {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.result-score {
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1.2;
+}
+
+.result-breakdown {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.result-breakdown > div {
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #121e30;
+}
+
+.result-breakdown strong { display: block; font-size: 1.5rem; }
+
+.callout {
+  padding: 22px;
+  border: 1px solid #3c516d;
+  border-radius: 15px;
+  background: #142137;
+  margin: 20px 0;
+}
+
+.callout strong { color: var(--blue); }
+
+.glossary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.term {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 13px;
+  padding: 17px;
+}
+
+.term strong { color: var(--accent); }
+
+.term p { font-size: .9rem; margin-bottom: 0; }
+
+label {
+  display: block;
+  color: var(--text);
+  font-weight: 700;
+  margin: 17px 0 7px;
+}
+
+textarea, input[type="text"] {
+  width: 100%;
+  border: 1px solid #3b4a63;
+  border-radius: 11px;
+  padding: 13px;
+  background: #0e1627;
+  color: var(--text);
+}
+
+textarea { resize: vertical; min-height: 125px; }
+
+.helper { font-size: .86rem; }
+
+.checklist {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.checklist label {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-weight: 500;
+  color: var(--muted);
+  margin: 0;
+}
+
+.checklist input { margin-top: 6px; accent-color: var(--accent); }
+
+.notice {
+  padding: 15px;
+  border-radius: 10px;
+  background: #202d40;
+  color: var(--muted);
+  margin: 15px 0;
+}
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+footer p { margin: 0; }
+
+.small { font-size: .84rem; }
+
+@media (max-width: 760px) {
+  header { align-items: flex-start; flex-direction: column; }
+  nav { justify-content: flex-start; gap: 13px; }
+  .hero { grid-template-columns: 1fr; padding-top: 42px; }
+  .hero-graphic { min-height: 260px; }
+  .grid { grid-template-columns: 1fr; }
+  .glossary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats { margin-bottom: 55px; }
+}
+
+@media (max-width: 440px) {
+  main { padding-left: 16px; padding-right: 16px; }
+  h1 { letter-spacing: -2px; }
+  .stats { grid-template-columns: 1fr; }
+  .glossary { grid-template-columns: 1fr; }
+  .result-breakdown { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <a class="brand" href="#home">DESIGN LAB <span>///</span></a>
+  <nav aria-label="Main navigation">
+    <a href="#mission">Mission</a>
+    <a href="#scenarios">Scenarios</a>
+    <a href="#learn">Learn</a>
+    <a href="#reflection">Reflection</a>
+    <a href="#sources">Sources</a>
+  </nav>
+</header>
+
+<main id="home">
+  <section class="hero" style="margin-top:0">
+    <div>
+      <div class="eyebrow">Digital citizenship · Ethics · Law</div>
+      <h1>Privacy<br>under <span>pressure.</span></h1>
+      <p>
+        Every tap leaves a decision behind. Explore what happens when apps
+        collect location data, companies share information, and technology
+        moves faster than our expectations.
+      </p>
+      <div class="hero-actions">
+        <a href="#scenarios"><button class="primary">Enter the lab ↗</button></a>
+        <a href="#learn"><button class="secondary">Explore the concepts</button></a>
+      </div>
+    </div>
+
+    <div class="hero-graphic" aria-label="Illustration of a digital privacy shield">
+      <span class="float-tag tag-one">DATA / PERSONAL</span>
+      <div class="orbit"><div class="shield">✓</div></div>
+      <span class="float-tag tag-two">ACCESS / CONTROL</span>
+    </div>
+  </section>
+
+  <div class="stats" aria-label="Website overview">
+    <div class="stat"><strong>04</strong><span>Interactive scenarios</span></div>
+    <div class="stat"><strong>02</strong><span>Core perspectives: ethics and law</span></div>
+    <div class="stat"><strong>01</strong><span>Your digital responsibility</span></div>
+  </div>
+
+  <section id="mission">
+    <div class="section-heading">
+      <div class="kicker">01 / The mission</div>
+      <h2>Privacy is more than a settings menu.</h2>
+      <p>
+        Digital privacy concerns how information is collected, used, stored,
+        and shared. Ethical decisions ask what should happen; laws establish
+        requirements and limits that apply in particular circumstances.
+      </p>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <div class="icon">⌖</div>
+        <span class="pill">LOCATION DATA</span>
+        <h3>Your location tells a story.</h3>
+        <p>
+          Navigation and weather apps may use location information to provide
+          useful services. Consider whether access is necessary, how long
+          information is retained, and who can see it.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="icon">◈</div>
+        <span class="pill">INFORMED CHOICE</span>
+        <h3>Permission should mean something.</h3>
+        <p>
+          People need understandable information to make meaningful choices.
+          A long privacy notice may technically disclose a practice without
+          making its consequences easy to understand.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="icon">⌘</div>
+        <span class="pill">ACCESS & SECURITY</span>
+        <h3>Not everyone needs access.</h3>
+        <p>
+          Organizations should limit access to personal information to
+          legitimate purposes and use appropriate safeguards to reduce
+          unauthorized access.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="icon">⚖</div>
+        <span class="pill">ACCOUNTABILITY</span>
+        <h3>Responsibility follows the data.</h3>
+        <p>
+          Companies and developers should consider foreseeable harms, explain
+          important practices, and review whether their systems respect users.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="scenarios">
+    <div class="section-heading">
+      <div class="kicker">02 / Interactive experience</div>
+      <h2>Four decisions. Real-world trade-offs.</h2>
+      <p>
+        Read each situation, choose a response, and examine the feedback.
+        The scenarios are designed for learning and discussion, not as legal
+        advice or a test of your personal habits.
+      </p>
+    </div>
+
+    <div class="lab">
+      <div class="lab-top">
+        <span class="scenario-number" id="scenarioCounter">SCENARIO 01 / 04</span>
+        <span class="pill" id="scenarioTopic">LOCATION PRIVACY</span>
+      </div>
+
+      <div class="progress-track" role="progressbar" aria-label="Scenario progress"
+           aria-valuemin="0" aria-valuemax="4" aria-valuenow="0" id="progressBar">
+        <div id="progressFill"></div>
+      </div>
+
+      <div id="scenarioArea" class="scenario" aria-live="polite"></div>
+      <div id="feedbackArea" aria-live="polite"></div>
+
+      <div class="lab-controls">
+        <button class="secondary" id="resetButton">↻ Start over</button>
+        <button class="primary" id="nextButton" disabled>Choose an answer</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="learn">
+    <div class="section-heading">
+      <div class="kicker">03 / Knowledge base</div>
+      <h2>Ethics and law: connected, but different.</h2>
+      <p>
+        A decision can be legally permitted but still raise ethical concerns.
+        A responsible technology professional considers both questions
+        instead of assuming that compliance settles every issue.
+      </p>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <div class="icon">◎</div>
+        <h3>Technology ethics</h3>
+        <p>
+          Ethics involves reasoning about fairness, honesty, harm, consent,
+          accountability, and respect for people.
+        </p>
+        <ul>
+          <li>Is the collection necessary?</li>
+          <li>Would users understand the consequences?</li>
+          <li>Could a different design reduce harm?</li>
+          <li>Are the benefits and risks distributed fairly?</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="icon">§</div>
+        <h3>Laws and regulations</h3>
+        <p>
+          Laws establish enforceable requirements. Which rules apply depends
+          on factors such as the information, people involved, organization,
+          and circumstances.
+        </p>
+        <ul>
+          <li>What legal requirements apply?</li>
+          <li>Does a specific rule cover this activity?</li>
+          <li>Are required notices or permissions provided?</li>
+          <li>Are there restrictions on collection or disclosure?</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="callout">
+      <strong>Example: a navigation app</strong>
+      <p>
+        An app may need location access to provide directions. Ethically,
+        developers should consider whether continuous background access is
+        necessary and whether users can understand and control it. Legal
+        requirements depend on the app's practices and applicable laws.
+      </p>
+    </div>
+
+    <div class="section-heading" style="margin-top:40px">
+      <div class="kicker">Relevant United States examples</div>
+      <h2>Know what a law actually covers.</h2>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <span class="pill">CONSUMER PROTECTION</span>
+        <h3>FTC Act</h3>
+        <p>
+          Section 5 of the Federal Trade Commission Act prohibits unfair or
+          deceptive acts or practices in or affecting commerce. Certain
+          misleading statements about privacy or data practices may raise
+          consumer-protection concerns.
+        </p>
+        <a href="https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title15-section45&num=0&edition=prelim"
+           target="_blank" rel="noopener noreferrer">Read Section 5 ↗</a>
+      </article>
+
+      <article class="card">
+        <span class="pill">CHILDREN'S PRIVACY</span>
+        <h3>COPPA</h3>
+        <p>
+          The Children's Online Privacy Protection Act and its implementing
+          rule impose requirements on covered operators of websites and
+          online services involving children under 13. It does not apply
+          identically to every app or every user.
+        </p>
+        <a href="https://www.ftc.gov/legal-library/browse/rules/childrens-online-privacy-protection-rule-coppa"
+           target="_blank" rel="noopener noreferrer">Explore the COPPA Rule ↗</a>
+      </article>
+    </div>
+
+    <div class="notice">
+      Educational note: These examples are not a complete list of privacy
+      laws. Do not assume a law applies without checking its scope and
+      requirements.
+    </div>
+  </section>
+
+  <section id="glossary">
+    <div class="section-heading">
+      <div class="kicker">04 / Quick reference</div>
+      <h2>Words behind the decisions.</h2>
+      <p>Use this glossary when discussing privacy, ethics, and software.</p>
+    </div>
+
+    <div class="glossary">
+      <article class="term"><strong>Personal data</strong><p>Information linked or linkable to an individual.</p></article>
+      <article class="term"><strong>Consent</strong><p>Agreement to a specific practice, where applicable and meaningful.</p></article>
+      <article class="term"><strong>Data minimization</strong><p>Limiting collection to what is necessary for a defined purpose.</p></article>
+      <article class="term"><strong>Transparency</strong><p>Clearly explaining important data practices and consequences.</p></article>
+      <article class="term"><strong>Retention</strong><p>How long information is kept before deletion or disposal.</p></article>
+      <article class="term"><strong>Third party</strong><p>An outside person or organization receiving or handling information.</p></article>
+      <article class="term"><strong>Encryption</strong><p>A method of protecting information by transforming it into a form that requires the appropriate key to read.</p></article>
+      <article class="term"><strong>Data breach</strong><p>An incident involving unauthorized access, disclosure, or exposure of information.</p></article>
+      <article class="term"><strong>Accountability</strong><p>Taking responsibility for practices and their consequences.</p></article>
+    </div>
+  </section>
+
+  <section id="reflection">
+    <div class="section-heading">
+      <div class="kicker">05 / Reflection studio</div>
+      <h2>Turn a decision into an argument.</h2>
+      <p>
+        Use your own words to explain how a technology practice affects
+        privacy. This checker provides writing prompts; it does not grade
+        the accuracy of your answer or send it anywhere.
+      </p>
+    </div>
+
+    <div class="card">
+      <label for="reflectionText">Your reflection</label>
+      <textarea id="reflectionText"
+        placeholder="Example: A navigation app should explain why it needs location access because..."></textarea>
+      <p class="helper" id="wordCount">0 words</p>
+
+      <div class="checklist">
+        <label><input type="checkbox" class="reflectionCheck"> I identified a specific technology or data practice.</label>
+        <label><input type="checkbox" class="reflectionCheck"> I explained a possible benefit and a possible risk.</label>
+        <label><input type="checkbox" class="reflectionCheck"> I connected the issue to an ethical principle or relevant law.</label>
+        <label><input type="checkbox" class="reflectionCheck"> I proposed a realistic improvement.</label>
+      </div>
+
+      <button class="primary" id="checkReflection">Review my checklist</button>
+      <div class="feedback" id="reflectionFeedback" aria-live="polite" hidden></div>
+    </div>
+  </section>
+
+  <section id="peer-testing">
+    <div class="section-heading">
+      <div class="kicker">06 / Usability testing</div>
+      <h2>Test the experience, not just the idea.</h2>
+      <p>
+        Ask a classmate to try the website. Record what actually happened,
+        including confusing wording, navigation issues, or accessibility
+        problems. Do not invent test results.
+      </p>
+    </div>
+
+    <div class="card">
+      <label for="tester">Tester label (no private information)</label>
+      <input id="tester" type="text" placeholder="Example: Tester 1">
+
+      <label for="task">Task attempted</label>
+      <input id="task" type="text" placeholder="Example: Complete all four scenarios">
+
+      <label for="observation">What actually happened?</label>
+      <textarea id="observation" placeholder="Describe the real observation, difficulty, or feedback."></textarea>
+
+      <label for="improvement">Suggested improvement</label>
+      <textarea id="improvement" placeholder="What change might make the experience clearer or easier?"></textarea>
+
+      <button class="primary" id="addTest">Add testing entry</button>
+      <button class="secondary" id="clearTests">Clear entries</button>
+
+      <div id="testLog" style="margin-top:20px" aria-live="polite">
+        <p class="helper">No testing entries recorded yet.</p>
+      </div>
+
+      <p class="helper">
+        Entries stay in this page's current session and are not uploaded
+        to a server. Copy any notes you need before leaving or refreshing.
+      </p>
+    </div>
+  </section>
+
+  <section id="sources">
+    <div class="section-heading">
+      <div class="kicker">07 / Research desk</div>
+      <h2>Go to the original sources.</h2>
+      <p>
+        These official resources can help you check claims and learn more.
+        Always read the relevant guidance instead of relying only on a summary.
+      </p>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Federal Trade Commission</h3>
+        <p>Consumer guidance and business resources about privacy, security, and online practices.</p>
+        <a href="https://www.ftc.gov/" target="_blank" rel="noopener noreferrer">Visit FTC.gov ↗</a>
+      </article>
+
+      <article class="card">
+        <h3>Mobile app privacy guidance</h3>
+        <p>FTC guidance for developers on making privacy and security part of app design.</p>
+        <a href="https://www.ftc.gov/business-guidance/resources/marketing-your-mobile-app-get-it-right-start"
+           target="_blank" rel="noopener noreferrer">Read the FTC guide ↗</a>
+      </article>
+
+      <article class="card">
+        <h3>United States Code: Section 5</h3>
+        <p>Primary legal text on unfair or deceptive acts or practices.</p>
+        <a href="https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title15-section45&num=0&edition=prelim"
+           target="_blank" rel="noopener noreferrer">Read the statute ↗</a>
+      </article>
+
+      <article class="card">
+        <h3>COPPA Rule</h3>
+        <p>Official FTC information about the children's online privacy rule.</p>
+        <a href="https://www.ftc.gov/legal-library/browse/rules/childrens-online-privacy-protection-rule-coppa"
+           target="_blank" rel="noopener noreferrer">Read the rule ↗</a>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Privacy Under Pressure</strong> · Digital Ethics Lab</p>
+    <p>Learn thoughtfully. Design responsibly. Protect privacy.</p>
+  </footer>
+</main>
+
 <script>
-const qs=[
-{t:"1. The location request",q:"Your navigation app needs location for turn-by-turn directions. The team also wants to collect location all day to sell audience insights to advertisers. What is the best design?",c:[["Collect it all by default; more data is always better.","This collects more than the navigation feature needs and ignores user expectations."],["Collect location only when needed, explain the purpose, and get meaningful permission before unexpected sharing.","Best choice. Data minimization, transparency, and user choice reduce privacy risk."],["Hide the sharing detail deep in a long policy.","A buried disclosure may not help users understand an unexpected use."]],a:1},
-{t:"2. The data trail",q:"A navigation service stores precise location history with a device identifier. What could this data reveal?",c:[["Only the current street, never past behavior.","Records over time can reveal patterns, not just one current position."],["Potentially home, work, routines, and visits to sensitive places.","Correct. Repeated location points can reveal sensitive patterns about a person."],["Nothing personal if the app has a colorful map.","Visual design does not determine whether stored location data is sensitive."]],a:1},
-{t:"3. Ethics or law?",q:"A developer says, “Our plan may be legal, so we don't need to consider whether users find it fair.” What is the best response?",c:[["Ethics still matters: consider fairness, transparency, user control, and avoidable harm beyond minimum legal compliance.","Correct. Legal compliance and ethical responsibility overlap but are not the same."],["Ethics only matters if the company is sued.","Ethical choices matter before a dispute occurs and can affect trust and harm."],["If users accept terms, every possible use is automatically ethical.","A click does not settle whether a practice is fair or respectful."]],a:0},
-{t:"4. What does the law say?",q:"A U.S. app makes a privacy promise it does not follow. Which statement is most accurate?",c:[["Every privacy mistake automatically violates COPPA.","COPPA applies to particular services and collection involving children under 13."],["The FTC Act can apply to unfair or deceptive acts or practices, but application depends on the facts and law.","Correct. This states the general federal rule without claiming every mistake is illegal."],["There are no U.S. federal rules related to privacy practices.","Federal laws and enforcement authorities can apply to particular practices."]],a:1}
-];let i=0,score=0,answered=false;const $=x=>document.getElementById(x);
-function render(){let q=qs[i];answered=false;$("title").textContent=q.t;$("question").textContent=q.q;$("options").innerHTML="";$("feedback").className="feedback";$("feedback").textContent="";q.c.forEach((c,j)=>{let b=document.createElement("button");b.className="choice";let l=document.createElement("span");l.className="letter";l.textContent=String.fromCharCode(65+j);let s=document.createElement("span");let strong=document.createElement("b");strong.textContent=c[0];s.appendChild(strong);b.append(l,s);b.onclick=()=>choose(j);$("options").appendChild(b)});$("next").disabled=true;$("next").textContent=i===qs.length-1?"See results →":"Next scenario →";$("score").textContent="Score: "+score+" / 4";$("bar").style.width=(i/4*100)+"%"}
-function choose(j){if(answered)return;answered=true;let q=qs[i],ok=j===q.a;if(ok)score++;[...$("options").children].forEach((b,k)=>{b.disabled=true;if(k===q.a)b.style.borderColor="#2a9b68";if(k===j&&!ok)b.style.borderColor="#c45b4f"});let f=$("feedback");f.className="feedback show "+(ok?"good":"try");f.textContent=(ok?"Good call. ":"Think it through. ")+q.c[j][1]+" Why it matters: privacy choices should be proportionate to the feature, clearly explained, and evaluated against ethical responsibilities and applicable law.";$("score").textContent="Score: "+score+" / 4";$("bar").style.width=((i+1)/4*100)+"%";$("next").disabled=false}
-$("next").onclick=()=>{if(!answered)return;if(i<3){i++;render()}else{$("title").textContent="Challenge complete!";$("question").textContent="You scored "+score+" out of 4. Review the feedback and explain one design choice you would defend."; $("options").innerHTML="";$("feedback").className="feedback show "+(score>=3?"good":"try");$("feedback").textContent=score>=3?"Strong work. Use the reasons, not just the score, to explain your choices.":"Good start. Restart and read each explanation to strengthen your reasoning.";$("next").disabled=true;$("bar").style.width="100%";$("score").textContent="Final score: "+score+" / 4"}};
-$("restart").onclick=()=>{i=0;score=0;render()};
-$("check").onclick=()=>{let t=$("response").value.toLowerCase(),terms=["clear","explain","consent","location","privacy","user","transparent","permission","collect","purpose","ethical"],found=terms.filter(x=>t.includes(x));let f=$("writing");f.className="feedback show "+(found.length>=3?"good":"try");f.textContent=found.length>=3?"You mention useful ideas ("+found.slice(0,5).join(", ")+"). Make sure you explain both the ethical concern and a concrete change in your own words.":"Name the privacy concern, explain how users could be affected, and recommend a concrete change such as clearer notice, limited collection, or meaningful permission."};
-$("prepare").onclick=()=>{let a=$("tester").value.trim(),b=$("peer").value.trim(),c=$("improve").value.trim(),f=$("reflection");f.className="feedback show "+(a&&b&&c?"good":"try");f.textContent="Peer tester: "+(a||"[add after testing]")+". Feedback: "+(b||"[record actual feedback]")+". Improvement made: "+(c||"[describe change]")+". "+(a&&b&&c?"Check accuracy and copy into your assignment notes.":"Complete after a real classmate test; do not invent feedback.")};render();
-</script></body></html>
+const scenarios = [
+  {
+    topic: "LOCATION PRIVACY",
+    title: "The always-on navigation app",
+    story: "A navigation app works while you travel, but it also requests access to your location when you are not using it. The app does not clearly explain why it needs background access.",
+    question: "What is the most responsible next step for the design team?",
+    answers: [
+      {
+        text: "Keep background tracking enabled by default because more data might be useful later.",
+        correct: false,
+        feedback: "Collecting extra data without a clear need can create unnecessary privacy risks. More data is not automatically better."
+      },
+      {
+        text: "Explain the purpose, assess whether background access is necessary, and offer meaningful controls.",
+        correct: true,
+        feedback: "This approach combines transparency, data minimization, and user control. The team should also check applicable legal requirements."
+      }
+    ]
+  },
+  {
+    topic: "DATA RETENTION",
+    title: "The forgotten location history",
+    story: "A company stores detailed location histories indefinitely, even though its service only needs recent information to provide its main feature.",
+    question: "Which approach best reflects responsible data management?",
+    answers: [
+      {
+        text: "Keep everything forever in case the company invents a future use.",
+        correct: false,
+        feedback: "Indefinite retention can increase exposure and misuse risks. A possible future use is not, by itself, a strong justification."
+      },
+      {
+        text: "Set a justified retention period, explain it, and securely delete information when it is no longer needed.",
+        correct: true,
+        feedback: "A clear retention policy supports data minimization and accountability. The exact legal obligations depend on the circumstances."
+      }
+    ]
+  },
+  {
+    topic: "SHARING & CONSENT",
+    title: "The unexpected advertising partner",
+    story: "A free app plans to share precise location data with an advertising partner. Users may not realize that installing the app could lead to this sharing.",
+    question: "What should the company prioritize?",
+    answers: [
+      {
+        text: "Make the sharing clear, evaluate whether it is necessary, and provide appropriate choices before it happens.",
+        correct: true,
+        feedback: "People should be able to understand important data practices. Transparency, appropriate consent, and minimizing disclosure help reduce privacy risks."
+      },
+      {
+        text: "Hide the practice deep in a long notice because the app is free.",
+        correct: false,
+        feedback: "A difficult-to-find disclosure can undermine meaningful understanding. Offering a free service does not erase ethical responsibilities or applicable legal obligations."
+      }
+    ]
+  },
+  {
+    topic: "ACCESS & SECURITY",
+    title: "The curious employee",
+    story: "An employee at a service provider can view customers' location records. The employee's job does not require that access, but the system does not restrict it.",
+    question: "What is the strongest improvement?",
+    answers: [
+      {
+        text: "Let all employees view the records as long as they have signed a workplace agreement.",
+        correct: false,
+        feedback: "A written agreement does not replace technical safeguards. Access should be limited according to legitimate job responsibilities."
+      },
+      {
+        text: "Restrict access by role, review access logs, and investigate suspicious activity.",
+        correct: true,
+        feedback: "Least-privilege access and monitoring reduce opportunities for misuse. Organizations should also train employees and respond to incidents appropriately."
+      }
+    ]
+  }
+];
+
+let current = 0;
+let answers = [];
+let chosen = null;
+
+const scenarioArea = document.getElementById("scenarioArea");
+const feedbackArea = document.getElementById("feedbackArea");
+const nextButton = document.getElementById("nextButton");
+const progressFill = document.getElementById("progressFill");
+const progressBar = document.getElementById("progressBar");
+
+function renderScenario() {
+  chosen = null;
+  feedbackArea.innerHTML = "";
+  nextButton.disabled = true;
+  nextButton.textContent = "Choose an answer";
+
+  const item = scenarios[current];
+  document.getElementById("scenarioCounter").textContent =
+    `SCENARIO ${String(current + 1).padStart(2, "0")} / ${String(scenarios.length).padStart(2, "0")}`;
+  document.getElementById("scenarioTopic").textContent = item.topic;
+  progressFill.style.width = `${(current / scenarios.length) * 100}%`;
+  progressBar.setAttribute("aria-valuenow", String(current));
+
+  scenarioArea.innerHTML = `
+    <h3>${item.title}</h3>
+    <p>${item.story}</p>
+    <h4>${item.question}</h4>
+    <div class="choice-list">
+      ${item.answers.map((answer, i) => `
+        <button class="choice" data-index="${i}">
+          <span class="choice-letter">${String.fromCharCode(65 + i)}</span>
+          <span>${answer.text}</span>
+        </button>
+      `).join("")}
+    </div>
+  `;
+
+  scenarioArea.querySelectorAll(".choice").forEach(button => {
+    button.addEventListener("click", () => selectAnswer(Number(button.dataset.index)));
+  });
+}
+
+function selectAnswer(index) {
+  if (chosen !== null) return;
+
+  chosen = index;
+  const item = scenarios[current];
+  const answer = item.answers[index];
+  answers[current] = answer.correct;
+
+  scenarioArea.querySelectorAll(".choice").forEach((button, i) => {
+    button.disabled = true;
+    if (i === index) {
+      button.classList.add("selected");
+      button.classList.add(answer.correct ? "correct" : "incorrect");
+    }
+  });
+
+  feedbackArea.innerHTML = `
+    <div class="feedback">
+      <strong>${answer.correct ? "✓ Strong choice" : "↗ Think it through"}</strong>
+      <p>${answer.feedback}</p>
+    </div>
+  `;
+
+  nextButton.disabled = false;
+  nextButton.textContent = current === scenarios.length - 1 ? "View results →" : "Next scenario →";
+}
+
+function showResults() {
+  const correct = answers.filter(Boolean).length;
+  const total = scenarios.length;
+  const percent = Math.round((correct / total) * 100);
+
+  progressFill.style.width = "100%";
+  progressBar.setAttribute("aria-valuenow", String(total));
+  document.getElementById("scenarioCounter").textContent = "LAB COMPLETE";
+  document.getElementById("scenarioTopic").textContent = "RESULTS";
+
+  let message;
+  if (correct === total) {
+    message = "Excellent work. You consistently chose responses that considered privacy and responsible design.";
+  } else if (correct >= 2) {
+    message = "Good progress. Review the feedback to strengthen your reasoning about consent, retention, and access.";
+  } else {
+    message = "Use this as a starting point. Review the explanations, then try again to compare your decisions.";
+  }
+
+  scenarioArea.innerHTML = `
+    <div class="result-panel">
+      <div class="eyebrow">Your learning snapshot</div>
+      <div class="result-score">${percent}%</div>
+      <h3>${correct} of ${total} scenarios answered with the preferred response</h3>
+      <p>${message}</p>
+      <div class="result-breakdown">
+        <div><strong>${correct}</strong><span class="small">Preferred responses</span></div>
+        <div><strong>${total - correct}</strong><span class="small">Responses to review</span></div>
+        <div><strong>${total}</strong><span class="small">Scenarios completed</span></div>
+      </div>
+      <p class="small">This is a learning activity, not a formal assessment of your knowledge or character.</p>
+    </div>
+  `;
+
+  feedbackArea.innerHTML = "";
+  nextButton.textContent = "Try again ↻";
+  nextButton.disabled = false;
+  nextButton.dataset.restart = "true";
+}
+
+nextButton.addEventListener("click", () => {
+  if (nextButton.dataset.restart === "true") {
+    resetLab();
+    return;
+  }
+
+  if (chosen === null) return;
+
+  if (current < scenarios.length - 1) {
+    current++;
+    renderScenario();
+  } else {
+    showResults();
+  }
+});
+
+function resetLab() {
+  current = 0;
+  answers = [];
+  chosen = null;
+  delete nextButton.dataset.restart;
+  renderScenario();
+}
+
+document.getElementById("resetButton").addEventListener("click", resetLab);
+
+const reflectionText = document.getElementById("reflectionText");
+const wordCount = document.getElementById("wordCount");
+
+reflectionText.addEventListener("input", () => {
+  const words = reflectionText.value.trim().split(/\s+/).filter(Boolean).length;
+  wordCount.textContent = `${words} ${words === 1 ? "word" : "words"}`;
+});
+
+document.getElementById("checkReflection").addEventListener("click", () => {
+  const checks = [...document.querySelectorAll(".reflectionCheck")];
+  const completed = checks.filter(check => check.checked).length;
+  const words = reflectionText.value.trim().split(/\s+/).filter(Boolean).length;
+  const box = document.getElementById("reflectionFeedback");
+
+  box.hidden = false;
+  box.innerHTML = `
+    <strong>${completed} of ${checks.length} reflection prompts checked</strong>
+    <p>
+      ${words < 30
+        ? "Consider adding more detail about the specific practice, its impact, and your proposed solution."
+        : "You have written a response. Review whether it clearly explains the issue and supports your reasoning with a relevant example."}
+    </p>
+    <p class="small">This tool checks word count and your checklist selections, not the factual accuracy or quality of your argument.</p>
+  `;
+});
+
+const testEntries = [];
+const testLog = document.getElementById("testLog");
+
+function renderTestLog() {
+  if (testEntries.length === 0) {
+    testLog.innerHTML = "<p class='helper'>No testing entries recorded yet.</p>";
+    return;
+  }
+
+  testLog.replaceChildren();
+
+  testEntries.forEach((entry, index) => {
+    const card = document.createElement("article");
+    card.className = "callout";
+
+    const heading = document.createElement("strong");
+    heading.textContent = `Entry ${index + 1}: ${entry.tester}`;
+
+    const task = document.createElement("p");
+    task.textContent = `Task: ${entry.task}`;
+
+    const observation = document.createElement("p");
+    observation.textContent = `Observation: ${entry.observation}`;
+
+    const improvement = document.createElement("p");
+    improvement.textContent = `Suggested improvement: ${entry.improvement}`;
+
+    card.append(heading, task, observation, improvement);
+    testLog.appendChild(card);
+  });
+}
+
+document.getElementById("addTest").addEventListener("click", () => {
+  const tester = document.getElementById("tester").value.trim();
+  const task = document.getElementById("task").value.trim();
+  const observation = document.getElementById("observation").value.trim();
+  const improvement = document.getElementById("improvement").value.trim();
+
+  if (!tester || !task || !observation || !improvement) {
+    alert("Please complete all four fields using your actual test observations.");
+    return;
+  }
+
+  testEntries.push({ tester, task, observation, improvement });
+  renderTestLog();
+
+  document.getElementById("task").value = "";
+  document.getElementById("observation").value = "";
+  document.getElementById("improvement").value = "";
+});
+
+document.getElementById("clearTests").addEventListener("click", () => {
+  testEntries.length = 0;
+  renderTestLog();
+});
+
+renderScenario();
+</script>
+</body>
+</html>
